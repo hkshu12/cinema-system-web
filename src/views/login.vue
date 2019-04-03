@@ -1,24 +1,28 @@
 <template>
     <Layout>
         <Header>
-            <Menu></Menu>
+            <Menu ref="menu"></Menu>
         </Header>
         <Content class="layout-content">
             <Row type="flex" justify="space-around">
                 <Col id="one" span="14">带图，大概</Col>
-                <Col span="8">
-                    <Card :bordered="false">
+                <Col class="layout-content-row-col2" span="8">
+                    <Card class="layout-content-row-col2-card" :bordered="false">
                         <p slot="title">欢迎登录CINEMA系统</p>
+                        <br />
                         <Form :model="formData" :label-width="80" width="60%">
                             <FormItem label="用户名">
                                 <Input v-model="formData.username" placeholder="请输入用户名"/>
                             </FormItem>
+                            <br />
                             <FormItem label="密码">
                                 <Input v-model="formData.password" placeholder="请输入密码"/>
                             </FormItem>
+                            <br />
                             <FormItem>
-                                <Button>登录</Button>
+                                <Button long @click="switchStatus">登录</Button>
                             </FormItem>
+                            <br />
                             <p>没有账号?&nbsp;<a href="#">点击注册</a></p>
                         </Form>
                     </Card>
@@ -32,6 +36,13 @@
 <style>
 .layout-content{
     margin-top: 16px;
+}
+.layout-content-row-col2{
+    position: relative;
+    height: 600px;
+}
+.layout-content-row-col2-card{
+    margin-top: 100px;
 }
 #one {
     background:white;
@@ -47,6 +58,12 @@ export default {
         username: '',
         password: ''
       }
+    }
+  },
+
+  methods: {
+    switchStatus () {
+      this.$refs.menu.hasLoggedIn = !this.$refs.menu.hasLoggedIn
     }
   },
 
