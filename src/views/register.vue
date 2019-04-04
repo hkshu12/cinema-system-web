@@ -1,0 +1,152 @@
+<template>
+  <Layout>
+    <Header>
+      <Menu></Menu>
+    </Header>
+    <Content class="layout-content">
+      <Row type="flex"
+           justify="space-around">
+        <Col class="layout-content-row-col"
+             span="8">
+        <Card class="layout-content-row-col2-card"
+              :bordered="false">
+          <p slot="title">欢迎使用CINEMA系统</p>
+          <br>
+          <Form class="layout-content-row-col-card-form"
+                ref="formValidate"
+                :model="formData"
+                :rules="ruleValidate"
+                :label-width="80"
+                label-position="left">
+            <FormItem label="用户名"
+                      prop="username">
+              <Input v-model="formData.username"
+                     placeholder="请输入用户名" />
+            </FormItem>
+            <br>
+            <FormItem label="密码"
+                      prop="password">
+              <Input type="password"
+                     v-model="formData.password"
+                     placeholder="请输入密码" />
+            </FormItem>
+            <br>
+            <FormItem label="确认密码"
+                      prop="repassword">
+              <Input type="password"
+                     v-model="formData.repassword"
+                     placeholder="请再次输入密码" />
+            </FormItem>
+            <br>
+            <FormItem>
+              <Button type="primary"
+                      long
+                      @click="handleSubmit('formData')">注册</Button>
+            </FormItem>
+            <br>
+            <p>
+              已有账号?&nbsp;
+              <router-link to="login">点击登录</router-link>
+            </p>
+            <br>
+          </Form>
+        </Card>
+        </Col>
+      </Row>
+    </Content>
+    <Footer>
+      <myFooter></myFooter>
+    </Footer>
+  </Layout>
+</template>
+<style>
+.layout-content {
+  margin-top: 16px;
+}
+.layout-content-row-col2-card {
+  position: relative;
+  margin-top: 100px;
+}
+.layout-content-row-col-card-form {
+  margin: 0 auto;
+  width: 80%;
+}
+</style>
+
+<script>
+import Menu from '@/components/menu'
+import myFooter from '@/components/footer'
+export default {
+  data () {
+    const validateUsername = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入用户名'))
+      }
+    }
+    const validatePassword = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入密码'))
+      } else {
+        if (this.formData.repassword !== '') {
+          // 对第二个密码框单独验证
+          this.$refs.formData.validateField('repassword')
+        }
+        callback()
+      }
+    }
+    const validateRepassword = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请再次输入密码'))
+      } else if (value !== this.formData.password) {
+        callback(new Error('两次输入的密码不一致!'))
+      } else {
+        callback()
+      }
+    }
+    return {
+      formData: {
+        username: '',
+        password: '',
+        repassword: ''
+      },
+      ruleValidate: {
+        username: [
+          {
+            validator: validateUsername,
+            trigger: 'blur'
+          }
+        ],
+        password: [
+          {
+            validator: validatePassword,
+            trigger: 'blur'
+          }
+        ],
+        repassword: [
+          {
+            validator: validateRepassword,
+            trigger: 'blur'
+          }
+        ]
+      }
+    }
+  },
+
+  methods: {
+    handleSubmit (name) {
+      this.$refs[name].validate((valid) => {
+        if (valid) {
+          this.$Message.success('Success!')
+        } else {
+          this.$Message.error('Fail!')
+        }
+      })
+    }
+  },
+
+  components: {
+    Menu,
+    myFooter
+  }
+}
+</script>
