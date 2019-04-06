@@ -20,6 +20,7 @@
                 :model="formData"
                 :label-width="80"
                 label-position="left">
+            <br>
             <FormItem label="用户名">
               <Input v-model="formData.username"
                      placeholder="请输入用户名" />
@@ -61,7 +62,7 @@
 }
 .layout-content-row-col2 {
   position: relative;
-  height: 650px;
+  height: 640px;
 }
 .layout-content-row-col2-card {
   margin-top: 100px;

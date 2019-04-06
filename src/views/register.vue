@@ -18,6 +18,7 @@
                 :rules="ruleValidate"
                 :label-width="80"
                 label-position="left">
+            <br>
             <FormItem label="用户名"
                       prop="username">
               <Input v-model="formData.username"
@@ -85,16 +86,14 @@ export default {
     const validateUsername = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('用户名不能为空'))
+      } else {
+        callback()
       }
     }
     const validatePassword = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('密码不能为空'))
       } else {
-        if (this.formData.repassword !== '') {
-          // 对第二个密码框单独验证
-          this.$refs.formData.validateField('repassword')
-        }
         callback()
       }
     }
