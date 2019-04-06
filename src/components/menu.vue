@@ -35,7 +35,7 @@
         </template>
         <MenuItem name="profile-myLikeMovie">我喜欢的</MenuItem>
         <MenuItem name="profile-details">个人资料</MenuItem>
-        <MenuItem name="profile-balabala">balabala</MenuItem>
+        <MenuItem name="profile-logout">注销登录</MenuItem>
       </Submenu>
     </div>
   </Menu>

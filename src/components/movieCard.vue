@@ -19,6 +19,7 @@
         <p>导演：{{movie.directors}}</p>
         <p>主演：{{movie.actors}}</p>
         <p>简介：{{movie.introduction}}</p>
+        <router-link style="float:right" to='movie'>查看详情</router-link>
       </div>
     </div>
   </Card>

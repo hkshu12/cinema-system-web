@@ -8,12 +8,12 @@
            justify="space-around">
         <Col class="layout-content-row-col"
              span="8">
-        <Card class="layout-content-row-col2-card"
+        <Card class="layout-content-row-col-card"
               :bordered="false">
           <p slot="title">欢迎使用CINEMA系统</p>
           <br>
           <Form class="layout-content-row-col-card-form"
-                ref="formValidate"
+                ref="formData"
                 :model="formData"
                 :rules="ruleValidate"
                 :label-width="80"
@@ -63,9 +63,13 @@
 .layout-content {
   margin-top: 16px;
 }
-.layout-content-row-col2-card {
+.layout-content-row-col {
   position: relative;
-  margin-top: 100px;
+  height: 640px;
+}
+.layout-content-row-col-card {
+  position: relative;
+  margin-top: 80px;
 }
 .layout-content-row-col-card-form {
   margin: 0 auto;
@@ -80,12 +84,12 @@ export default {
   data () {
     const validateUsername = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('请输入用户名'))
+        callback(new Error('用户名不能为空'))
       }
     }
     const validatePassword = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('请输入密码'))
+        callback(new Error('密码不能为空'))
       } else {
         if (this.formData.repassword !== '') {
           // 对第二个密码框单独验证
@@ -96,9 +100,9 @@ export default {
     }
     const validateRepassword = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('请再次输入密码'))
+        callback(new Error('密码不能为空'))
       } else if (value !== this.formData.password) {
-        callback(new Error('两次输入的密码不一致!'))
+        callback(new Error('两次输入的密码不一致'))
       } else {
         callback()
       }
@@ -136,9 +140,9 @@ export default {
     handleSubmit (name) {
       this.$refs[name].validate((valid) => {
         if (valid) {
-          this.$Message.success('Success!')
+          this.$Message.success('Success')
         } else {
-          this.$Message.error('Fail!')
+          this.$Message.error('Fail')
         }
       })
     }

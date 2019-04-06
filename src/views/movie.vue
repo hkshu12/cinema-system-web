@@ -1,0 +1,9 @@
+<template>
+  <Layout>
+    <Sider>
+      Sider
+    </Sider>
+    <Content>
+    </Content>
+  </Layout>
+</template>
