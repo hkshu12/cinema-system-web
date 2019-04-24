@@ -1,8 +1,7 @@
 <template>
   <Menu class="menu"
         mode="horizontal"
-        theme="dark"
-        active-name="1">
+        theme="dark">
     <div class="menu-left">
       <MenuItem name="LOGO" to="index">LOGO</MenuItem>
       <MenuItem name="2">222</MenuItem>
@@ -33,9 +32,11 @@
         <template slot="title">
           <Icon type="md-person" />我的账户
         </template>
-        <MenuItem name="profile-myLikeMovie">我喜欢的</MenuItem>
-        <MenuItem name="profile-details">个人资料</MenuItem>
-        <MenuItem name="profile-logout">注销登录</MenuItem>
+        <MenuItem name="profile" to='my/profile'>个人资料</MenuItem>
+        <MenuItem name="myLikeMovie" to='my/likemovie'>我喜欢的</MenuItem>
+        <MenuItem name="myOrders" to='my/orders'>我的订单</MenuItem>
+        <MenuItem name="myVIP" to='my/vip'>我的会员</MenuItem>
+        <MenuItem name="logout">注销登录</MenuItem>
       </Submenu>
     </div>
   </Menu>
