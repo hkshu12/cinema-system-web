@@ -6,8 +6,11 @@ Author: hkshu12 & cyt928
 
 ## Progress:
 
-- 2019.4.4 by hkshu12
-- - components: orderCard
+- 2019.4.26 by hkshu12
+  - components:完善movieCard逻辑
+  - views:movie请求数据逻辑
+- 2019.4.24 by hkshu12
+  - components: orderCard
 - 2019.4.4 by hkshu12
   - components: movieCard & footer
   - views: register & index

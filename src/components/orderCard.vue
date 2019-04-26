@@ -1,10 +1,13 @@
 <template>
   <Card class="orderCard">
-    <p slot="title" class="orderCard-orderDate">
+    <p slot="title"
+       class="orderCard-orderDate">
       <Icon type="ios-calendar-outline" />
       {{order.orderDate}}
     </p>
-    <p slot="extra" class="orderCard-orderNumber" style="">
+    <p slot="extra"
+       class="orderCard-orderNumber"
+       style="">
       订单编号:{{order.orderNumber}}
     </p>
     <div class="orderCard-content">
@@ -17,7 +20,8 @@
         <p>《{{order.movieName}}》</p>
         <p style="color:grey">&nbsp;座位：</p>
         <ul style="color:grey; padding-left:20px; list-style-type: none">
-          <li v-for="(seat,index) in order.seats" :key="index">{{seat.row}}排{{seat.col}}座</li>
+          <li v-for="(seat,index) in order.seats"
+              :key="index">{{seat.row}}排{{seat.col}}座</li>
         </ul>
       </div>
       <div class="orderCard-content-right">
@@ -33,9 +37,10 @@
         <p style="color:grey">￥{{order.unitPrice * order.num}}</p>
       </div>
     </div>
-    <Divider style="margin-bottom: 15px"/>
+    <Divider style="margin-bottom: 15px" />
     <div style="float:right">
-      <Button type="primary" ghost>查看订单详情</Button>
+      <Button type="primary"
+              ghost>查看订单详情</Button>
     </div>
   </Card>
 </template>
@@ -53,17 +58,17 @@ p {
   width: 800px;
   text-align: left;
 }
-.orderCard-content-poster{
+.orderCard-content-poster {
   float: left;
   padding-left: 16px;
 }
-.orderCard-content-orderInfo{
-  float:left;
+.orderCard-content-orderInfo {
+  float: left;
   padding-left: 16px;
   width: 300px;
 }
-.orderCard-content-right{
-  float:left;
+.orderCard-content-right {
+  float: left;
   text-align: center;
   width: 100px;
 }

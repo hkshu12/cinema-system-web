@@ -2,7 +2,8 @@
   <Card class="movieCard">
     <p slot="title"
        class="movieCard-movieName">
-      <Icon type="ios-film-outline" />&nbsp;{{movie.name}}<Icon type="ios-arrow-forward" />
+      <Icon type="ios-film-outline" />&nbsp;{{movie.name}}
+      <Icon type="ios-arrow-forward" />
     </p>
     <p slot="extra">{{movie.likeNum}}
       <Icon type="ios-heart"
@@ -17,10 +18,13 @@
       <div class="movieCard-content-movieInfo">
         <p>导演：{{movie.directors}}</p>
         <p>主演：{{movie.actors}}</p>
-        <p>简介：{{movie.introduction}}</p>
+        <p style="height:75px">简介：{{movie.introduction}}</p>
+        <div style="float:right">
+          <Button type="primary"
+                  @click='this.jumpToMovePage'
+                  ghost>查看电影详情</Button>
+        </div>
       </div>
-      <router-link style="float:right"
-                   to='movie'>查看详情</router-link>
     </div>
   </Card>
 </template>
@@ -49,7 +53,7 @@ p {
 }
 .movieCard-content-movieInfo {
   float: left;
-  width: 600px;
+  width: 650px;
   padding-left: 16px;
 }
 </style>
@@ -60,12 +64,25 @@ export default {
     return {
       movie: {
         name: '三体',
+        id: 1,
         likeNum: 5,
         posterURL: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1554357005710&di=9e316b2c6c8f7daf398c4866bd3a321e&imgtype=0&src=http%3A%2F%2Fi2.hexunimg.cn%2F2016-07-28%2F185209547.jpg',
         directors: 'asd/dsa/asd',
         actors: 'fff/ccc',
         introduction: '-comcomcomhttps://tdffds爱的色放答复是1人的身份3让大叔23当时的3房贷首付3对方是否3多少钱的ef'
       }
+    }
+  },
+  methods: {
+    jumpToMovePage () {
+      // 传递的参数用{{ $route.query.goodsId }}获取
+      this.$router.push({
+        path: '/movie',
+        query: {
+          movieid: this.movie.id
+        }
+      })
+      console.log('jumpToMoviePage')
     }
   }
 }
