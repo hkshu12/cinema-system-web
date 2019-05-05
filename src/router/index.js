@@ -22,6 +22,11 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: () => import('@/views/register')
+    },
+    {
+      path: '/my/profile',
+      name: 'myProfile',
+      component: () => import('@/views/my/profile')
     }
   ]
 })

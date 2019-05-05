@@ -6,6 +6,7 @@
     <Content class="layout-content">
       <Row type="flex" justify="space-around">
         <movieCard></movieCard>
+        <orderCard></orderCard>
       </Row>
     </Content>
     <Footer>
@@ -18,11 +19,13 @@
 import Menu from '@/components/menu'
 import myFooter from '@/components/footer'
 import movieCard from '@/components/movieCard'
+import orderCard from '@/components/orderCard'
 export default {
   components: {
     Menu,
     myFooter,
-    movieCard
+    movieCard,
+    orderCard
   }
 }
 </script>
