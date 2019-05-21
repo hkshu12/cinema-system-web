@@ -3,8 +3,8 @@
         mode="horizontal"
         theme="dark">
     <div class="menu-left">
-      <MenuItem name="LOGO" to="index">LOGO</MenuItem>
-      <MenuItem name="2">222</MenuItem>
+      <MenuItem name="LOGO" to="index"><b>CINEMA</b></MenuItem>
+      <MenuItem name="movie">电影</MenuItem>
       <MenuItem name="3">333</MenuItem>
       <MenuItem name="4">444</MenuItem>
     </div>
@@ -16,9 +16,9 @@
              icon="ios-search" />
       </MenuItem>
       <MenuItem name="login"
-                to="login">登录</MenuItem>
+                to="/login">登录</MenuItem>
       <MenuItem name="register"
-                to="register">注册</MenuItem>
+                to="/register">注册</MenuItem>
     </div>
     <div class="menu-right"
          v-else>
@@ -34,7 +34,7 @@
         </template>
         <MenuItem name="profile" to='my/profile'>个人资料</MenuItem>
         <MenuItem name="myLikeMovie" to='my/likeMovie'>我喜欢的</MenuItem>
-        <MenuItem name="myOrders" to='my/orders'>我的影票</MenuItem>
+        <MenuItem name="myOrders" to='my/tickets'>我的影票</MenuItem>
         <MenuItem name="myVIP" to='my/vip'>我的会员</MenuItem>
         <MenuItem name="logout">注销登录</MenuItem>
       </Submenu>

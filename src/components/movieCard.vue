@@ -30,16 +30,16 @@
 </template>
 
 <style>
-p {
-  word-wrap: break-word;
-  word-break: break-all;
-  overflow: hidden;
-}
 .movieCard {
   margin-top: 10px;
   height: 250px;
   width: 800px;
   text-align: left;
+}
+.movieCard p {
+  word-wrap: break-word;
+  word-break: break-all;
+  overflow: hidden;
 }
 .movieCard-movieName {
   margin-left: 10px;

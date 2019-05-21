@@ -34,6 +34,7 @@
             <FormItem>
               <Button long
                       type="primary"
+                      ghost
                       @click="switchStatus">登录</Button>
             </FormItem>
             <br>

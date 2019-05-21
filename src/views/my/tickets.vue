@@ -4,6 +4,7 @@
       <Menu ref="Menu"></Menu>
     </Header>
     <Content>
+      <ticketCard></ticketCard>
     </Content>
     <Footer>
       <myFooter></myFooter>
@@ -14,11 +15,11 @@
 <script>
 import Menu from '@/components/menu'
 import myFooter from '@/components/footer'
-import orderCard from '@/components/orderCard'
+import ticketCard from '@/components/ticketCard'
 export default {
   components: {
     Menu,
-    orderCard,
+    ticketCard,
     myFooter
   }
 }

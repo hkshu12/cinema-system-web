@@ -27,6 +27,11 @@ export default new Router({
       path: '/my/profile',
       name: 'myProfile',
       component: () => import('@/views/my/profile')
+    },
+    {
+      path: '/my/tickets',
+      name: 'myTickets',
+      component: () => import('@/views/my/tickets')
     }
   ]
 })
