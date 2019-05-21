@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import func from '../../vue-temp/vue-editor-bridge';
 export default {
   data () {
     return {
