@@ -14,6 +14,14 @@ export default new Router({
       component: () => import('@/views/index')
     },
     {
+      path: '/movielist',
+      component: () => import('@/views/movielist')
+    },
+    {
+      path: '/movie',
+      component: () => import('@/views/movie')
+    },
+    {
       path: '/login',
       name: 'login',
       component: () => import('@/views/login')

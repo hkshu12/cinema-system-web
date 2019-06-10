@@ -4,6 +4,8 @@
       Sider
     </Sider>
     <Content>
+      这边数据获取逻辑写完了，剩数据展示和美化
+      <p>daoyan:{{movieDetails.director}}</p>
     </Content>
   </Layout>
 </template>
@@ -12,12 +14,7 @@
 export default {
   data () {
     return {
-      name: '',
-      likeNum: 0,
-      posterURL: '',
-      directors: '',
-      actors: '',
-      introduction: ''
+      movieDetails: {}
     }
   },
   mounted: function () {
@@ -25,19 +22,19 @@ export default {
   },
   methods: {
     getMovieInfo () {
-      this.$axios.get(
-        '/movie/', {
-          params: {
-            movieid: this.$route.query.movieid
-          }
-        }).then(function (res) {
-        renderMovieInfo(res.content)
+      let that = this
+      this.$axios({
+        method: 'get',
+        url: 'http://localhost:8080/movie/' + this.$route.query.id + '/' + sessionStorage.getItem('id')
+      }).then(function (res) {
+        if (res.data.success) {
+          that.movieDetails = res.data.content
+        } else {
+          alert(res.data.message)
+        }
       }).catch(function (error) {
         alert(error)
       })
-    },
-    renderMovieInfo (content) {
-            
     }
   }
 }
