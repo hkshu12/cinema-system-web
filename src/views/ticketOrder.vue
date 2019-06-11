@@ -12,7 +12,7 @@
           <div v-for="col in seatsArray[0].length" v-bind:key="col" >
             <div class="inner-seat"
                  @click="addSeat(row-1,col-1)"
-                 :class="seatsArray[row-1][col-1]===1?'selected-seat':'unselected-seat'">
+                 :class="seatsArray[row-1][col-1]===1?'selected-seat':'unselected-seat'">???
             </div>
           </div>
         </div>
@@ -23,6 +23,7 @@
 </template>
 <style>
   .selected-seat {
+    display: inline;
     background: url("../assets/selected-seat.png");
     width: 28px;
     height: 28px;
@@ -32,6 +33,7 @@
     outline: none;
   }
   .unselected-seat {
+    display: inline;
     background: url("../assets/unselected-seat.png");
     width: 28px;
     height: 28px;
