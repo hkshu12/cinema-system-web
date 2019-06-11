@@ -1,8 +1,5 @@
 <template>
   <Layout>
-    <Header>
-      <Menu ref="menu"></Menu>
-    </Header>
     <Content class="layout-content">
       <Row type="flex"
            justify="space-around">
@@ -76,7 +73,6 @@
 </style>
 
 <script>
-import Menu from '@/components/menu'
 import myFooter from '@/components/footer'
 export default {
   data () {
@@ -122,10 +118,11 @@ export default {
           sessionStorage.setItem('role', res.data.content.role)
           alert('登录成功！')
           if (res.data.content.role === 'user') {
-            that.$router.push('index')
+            that.$router.push('/')
           } else {
             that.$router.push('admin')
           }
+          sessionStorage.setItem('loginStatus', 'user')
         } else {
           alert(res.data.content.message)
         }
@@ -136,7 +133,6 @@ export default {
   },
 
   components: {
-    Menu,
     myFooter
   }
 }
