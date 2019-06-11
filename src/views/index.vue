@@ -1,13 +1,14 @@
 <template>
   <Layout>
     <Header>
-      <Menu ref="menu"></Menu>
+      <Menu v-bind:loginStatus="loginStatus"></Menu>
     </Header>
-    <Content class="layout-content">
-      <Row type="flex" justify="space-around">
-        <movieCard></movieCard>
-        <orderCard></orderCard>
-      </Row>
+    <Content style="padding: 10px 30px;min-height: 600px">
+      <Card style="padding: 0 50px;">
+        <div style="min-height: 200px;">
+          <router-view></router-view>
+        </div>
+      </Card>
     </Content>
     <Footer>
       <myFooter></myFooter>
@@ -26,6 +27,16 @@ export default {
     myFooter,
     movieCard,
     orderCard
+  },
+  data () {
+    return {
+      loginStatus: 'guest'
+    }
+  },
+  created: function () {
+    this.loginStatus = sessionStorage.getItem('loginStatus')
+  },
+  methods: {
   }
 }
 </script>

@@ -1,8 +1,5 @@
 <template>
   <Layout>
-    <Header>
-      <Menu></Menu>
-    </Header>
     <Content class="layout-content">
       <Row type="flex"
            justify="space-around">

@@ -1,5 +1,6 @@
 <template>
   <Layout>
+    <h3>ssss</h3>
     <Sider>
       Sider
     </Sider>
@@ -24,21 +25,6 @@ export default {
     this.getMovieInfo()
   },
   methods: {
-    getMovieInfo () {
-      this.$axios.get(
-        '/movie/', {
-          params: {
-            movieid: this.$route.query.movieid
-          }
-        }).then(function (res) {
-        renderMovieInfo(res.content)
-      }).catch(function (error) {
-        alert(error)
-      })
-    },
-    renderMovieInfo (content) {
-            
-    }
   }
 }
 </script>

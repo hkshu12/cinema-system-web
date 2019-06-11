@@ -7,11 +7,22 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: () => import('@/views/index')
+      redirect: '/index'
     },
     {
       path: '/index',
-      component: () => import('@/views/index')
+      name: 'index',
+      component: () => import('@/views/index'),
+      children: [
+        {
+          path: 'movie',
+          component: () => import('@/views/movie')
+        },
+        {
+          path: 'order',
+          component: () => import('@/views/ticketOrder')
+        }
+      ]
     },
     {
       path: '/login',
@@ -32,6 +43,11 @@ export default new Router({
       path: '/my/tickets',
       name: 'myTickets',
       component: () => import('@/views/my/tickets')
+    },
+    {
+      path: '/movie',
+      name: 'movie',
+      component: () => import('@/views/movie')
     }
   ]
 })

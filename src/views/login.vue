@@ -1,8 +1,5 @@
 <template>
   <Layout>
-    <Header>
-      <Menu ref="menu"></Menu>
-    </Header>
     <Content class="layout-content">
       <Row type="flex"
            justify="space-around">
@@ -35,7 +32,7 @@
               <Button long
                       type="primary"
                       ghost
-                      @click="switchStatus">登录</Button>
+                      @click="login()">登录</Button>
             </FormItem>
             <br>
             <p>
@@ -48,9 +45,6 @@
         </Col>
       </Row>
     </Content>
-    <Footer>
-      <myFooter></myFooter>
-    </Footer>
   </Layout>
 </template>
 
@@ -76,7 +70,6 @@
 
 <script>
 import Menu from '@/components/menu'
-import myFooter from '@/components/footer'
 export default {
   data () {
     return {
@@ -86,16 +79,56 @@ export default {
       }
     }
   },
-
   methods: {
-    switchStatus () {
-      this.$refs.menu.hasLoggedIn = !this.$refs.menu.hasLoggedIn
+    validateLoginForm () {
+      let isValidate = true
+      if (!this.formData.username) {
+        isValidate = false
+      }
+      if (!this.formData.password) {
+        isValidate = false
+      }
+      console.log(this.formData.username)
+      console.log(this.formData.password)
+      console.log(isValidate)
+      return isValidate
+    },
+
+    login () {
+      // let that = this
+      // if (!this.validateLoginForm()) {
+      //   alert('请输入用户名和密码')
+      //   return
+      // }
+      // this.$axios({
+      //   method: 'post',
+      //   url: 'http://localhost:8080/login',
+      //   data: {
+      //     username: that.formData.username,
+      //     password: that.formData.password
+      //   }}).then(function (res) {
+      //   if (res.data.success) {
+      //     sessionStorage.setItem('username', that.formData.username)
+      //     sessionStorage.setItem('id', res.data.content.id)
+      //     sessionStorage.setItem('role', res.data.content.role)
+      //     alert('登录成功！')
+      //     if (res.data.content.role === 'user') {
+      //       that.$router.push('/')
+      //     } else {
+      //       that.$router.push('admin')
+      //     }
+      //   } else {
+      //     alert(res.data.content.message)
+      //   }
+      // }).catch(function (error) {
+      //   alert(error)
+      // })
+      sessionStorage.setItem('loginStatus', 'user')
+      this.$router.push('/')
     }
   },
-
   components: {
-    Menu,
-    myFooter
+    Menu
   }
 }
 </script>
