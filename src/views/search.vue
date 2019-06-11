@@ -1,12 +1,11 @@
 <template>
   <Layout>
+    <Header>
+      <Menu ref="menu"></Menu>
+    </Header>
     <Content class="layout-content">
       <Row type="flex"
            justify="space-around">
-        <Switch size="large" @click="switchStatus">
-          <span slot="open">全部</span>
-          <span slot="close">在映</span>
-        </Switch>
         <ul>
           <li v-for="item in movieList"
               v-bind:key="item.id">
@@ -15,10 +14,15 @@
         </ul>
       </Row>
     </Content>
+    <Footer>
+      <myFooter></myFooter>
+    </Footer>
   </Layout>
 </template>
 
 <script>
+import Menu from '@/components/menu'
+import myFooter from '@/components/footer'
 import movieCard from '@/components/movieCard'
 export default {
   data () {
@@ -27,13 +31,19 @@ export default {
     }
   },
   components: {
+    Menu,
+    myFooter,
     movieCard
+  },
+
+  methods: {
+
   },
   mounted: function () {
     let that = this
     this.$axios({
       method: 'get',
-      url: 'http://localhost:8080/movie/all'
+      url: 'http://localhost:8080/movie/search?keyword=' + that.$route.query.keyword
     }).then(function (res) {
       if (res.data.success) {
         that.movieList = res.data.content
@@ -43,11 +53,6 @@ export default {
     }).catch(function (error) {
       alert(error)
     })
-  },
-  methods: {
-    switchStatus () {
-
-    }
   }
 }
 </script>

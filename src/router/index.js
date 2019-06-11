@@ -15,22 +15,40 @@ export default new Router({
       component: () => import('@/views/index'),
       children: [
         {
-          path: 'movie',
+          path: '/main',
+          component: () => import('@/views/main')
+        },
+        {
+          path: '/movie',
           component: () => import('@/views/movie')
         },
         {
-          path: 'order',
+          path: '/order',
           component: () => import('@/views/ticketOrder')
+        },
+        {
+          path: '/movielist',
+          component: () => import('@/views/movielist')
+        },
+        {
+          path: '/search',
+          component: () => import('@/views/search')
+        },
+        {
+          path: '/movie',
+          component: () => import('@/views/movie')
+        },
+        {
+          path: '/my/profile',
+          name: 'myProfile',
+          component: () => import('@/views/my/profile')
+        },
+        {
+          path: '/my/tickets',
+          name: 'myTickets',
+          component: () => import('@/views/my/tickets')
         }
       ]
-    },
-    {
-      path: '/movielist',
-      component: () => import('@/views/movielist')
-    },
-    {
-      path: '/movie',
-      component: () => import('@/views/movie')
     },
     {
       path: '/login',
@@ -41,21 +59,6 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: () => import('@/views/register')
-    },
-    {
-      path: '/my/profile',
-      name: 'myProfile',
-      component: () => import('@/views/my/profile')
-    },
-    {
-      path: '/my/tickets',
-      name: 'myTickets',
-      component: () => import('@/views/my/tickets')
-    },
-    {
-      path: '/movie',
-      name: 'movie',
-      component: () => import('@/views/movie')
     }
   ]
 })

@@ -63,9 +63,9 @@
                      :data="item.scheduleItemList"
                      stripe></Table>
             </TabPane>
+            <p slot="extra" style="color:grey">只显示最近5天排片</p>
           </Tabs>
         </Card>
-
       </div>
     </Content>
   </Layout>
