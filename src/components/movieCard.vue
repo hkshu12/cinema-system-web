@@ -5,6 +5,11 @@
       <Icon type="ios-film-outline" />&nbsp;{{movie.name}}
       <Icon type="ios-arrow-forward" />
     </p>
+    <p slot="extra"
+       id="likeCount"
+       v-if="movie.likeCount">
+      <Icon type="md-heart"
+            color="red" />&nbsp;{{movie.likeCount}}</p>
 
     <div class="movieCard-content">
       <div class="movieCard-content-poster">
@@ -15,8 +20,10 @@
       <div class="movieCard-content-movieInfo">
         <p>导演：{{movie.director}}</p>
         <p>主演：{{movie.starring}}</p>
-        <p style="height:75px" v-if="movie.description.length > 100">简介：{{movie.description.substring(0,100) + '...'}}</p>
-        <p style="height:75px" v-else>简介：{{movie.description}}</p>
+        <p style="height:75px"
+           v-if="movie.description.length > 100">简介：{{movie.description.substring(0,100) + '...'}}</p>
+        <p style="height:75px"
+           v-else>简介：{{movie.description}}</p>
         <div style="float:right">
           <Button type="primary"
                   @click="href"
