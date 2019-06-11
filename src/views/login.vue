@@ -1,5 +1,8 @@
 <template>
   <Layout>
+    <Header>
+      <Menu ref="menu"></Menu>
+    </Header>
     <Content class="layout-content">
       <Row type="flex"
            justify="space-around">
@@ -25,6 +28,7 @@
             <br>
             <FormItem label="密码">
               <Input v-model="formData.password"
+                     type="password"
                      placeholder="请输入密码" />
             </FormItem>
             <br>
@@ -32,7 +36,7 @@
               <Button long
                       type="primary"
                       ghost
-                      @click="login()">登录</Button>
+                      @click="login">登录</Button>
             </FormItem>
             <br>
             <p>
@@ -45,6 +49,9 @@
         </Col>
       </Row>
     </Content>
+    <Footer>
+      <myFooter></myFooter>
+    </Footer>
   </Layout>
 </template>
 
@@ -70,6 +77,7 @@
 
 <script>
 import Menu from '@/components/menu'
+import myFooter from '@/components/footer'
 export default {
   data () {
     return {
@@ -79,9 +87,10 @@ export default {
       }
     }
   },
+
   methods: {
     validateLoginForm () {
-      let isValidate = true
+      var isValidate = true
       if (!this.formData.username) {
         isValidate = false
       }
@@ -95,40 +104,40 @@ export default {
     },
 
     login () {
-      // let that = this
-      // if (!this.validateLoginForm()) {
-      //   alert('请输入用户名和密码')
-      //   return
-      // }
-      // this.$axios({
-      //   method: 'post',
-      //   url: 'http://localhost:8080/login',
-      //   data: {
-      //     username: that.formData.username,
-      //     password: that.formData.password
-      //   }}).then(function (res) {
-      //   if (res.data.success) {
-      //     sessionStorage.setItem('username', that.formData.username)
-      //     sessionStorage.setItem('id', res.data.content.id)
-      //     sessionStorage.setItem('role', res.data.content.role)
-      //     alert('登录成功！')
-      //     if (res.data.content.role === 'user') {
-      //       that.$router.push('/')
-      //     } else {
-      //       that.$router.push('admin')
-      //     }
-      //   } else {
-      //     alert(res.data.content.message)
-      //   }
-      // }).catch(function (error) {
-      //   alert(error)
-      // })
-      sessionStorage.setItem('loginStatus', 'user')
-      this.$router.push('/')
+      let that = this
+      if (!this.validateLoginForm()) {
+        alert('请输入用户名和密码')
+        return
+      }
+      this.$axios({
+        method: 'post',
+        url: 'http://localhost:8080/login',
+        data: {
+          username: that.formData.username,
+          password: that.formData.password
+        }}).then(function (res) {
+        if (res.data.success) {
+          sessionStorage.setItem('username', that.formData.username)
+          sessionStorage.setItem('id', res.data.content.id)
+          sessionStorage.setItem('role', res.data.content.role)
+          alert('登录成功！')
+          if (res.data.content.role === 'user') {
+            that.$router.push('index')
+          } else {
+            that.$router.push('admin')
+          }
+        } else {
+          alert(res.data.content.message)
+        }
+      }).catch(function (error) {
+        alert(error)
+      })
     }
   },
+
   components: {
-    Menu
+    Menu,
+    myFooter
   }
 }
 </script>

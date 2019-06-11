@@ -5,10 +5,12 @@
       <Icon type="ios-film-outline" />&nbsp;{{movie.name}}
       <Icon type="ios-arrow-forward" />
     </p>
-    <p slot="extra">{{movie.likeNum}}
-      <Icon type="ios-heart"
-            color="red" />
-    </p>
+    <p slot="extra"
+       id="likeCount"
+       v-if="movie.likeCount">
+      <Icon type="md-heart"
+            color="red" />&nbsp;{{movie.likeCount}}</p>
+
     <div class="movieCard-content">
       <div class="movieCard-content-poster">
         <img :src="movie.posterURL"
@@ -16,12 +18,15 @@
              width="100px" />
       </div>
       <div class="movieCard-content-movieInfo">
-        <p>导演：{{movie.directors}}</p>
-        <p>主演：{{movie.actors}}</p>
-        <p style="height:75px">简介：{{movie.introduction}}</p>
+        <p>导演：{{movie.director}}</p>
+        <p>主演：{{movie.starring}}</p>
+        <p style="height:75px"
+           v-if="movie.description.length > 100">简介：{{movie.description.substring(0,100) + '...'}}</p>
+        <p style="height:75px"
+           v-else>简介：{{movie.description}}</p>
         <div style="float:right">
           <Button type="primary"
-                  @click='this.jumpToMovePage'
+                  @click="href"
                   ghost>查看电影详情</Button>
         </div>
       </div>
@@ -62,27 +67,19 @@
 export default {
   data () {
     return {
-      movie: {
-        name: '三体',
-        id: 1,
-        likeNum: 5,
-        posterURL: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1554357005710&di=9e316b2c6c8f7daf398c4866bd3a321e&imgtype=0&src=http%3A%2F%2Fi2.hexunimg.cn%2F2016-07-28%2F185209547.jpg',
-        directors: 'asd/dsa/asd',
-        actors: 'fff/ccc',
-        introduction: '-comcomcomhttps://tdffds爱的色放答复是1人的身份3让大叔23当时的3房贷首付3对方是否3多少钱的ef'
-      }
     }
   },
+  props: {
+    movie: Object
+  },
   methods: {
-    jumpToMovePage () {
-      // 传递的参数用{{ $route.query.goodsId }}获取
+    href () {
       this.$router.push({
         path: '/movie',
         query: {
-          movieid: this.movie.id
+          id: this.movie.id
         }
       })
-      console.log('jumpToMoviePage')
     }
   }
 }
