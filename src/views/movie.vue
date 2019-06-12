@@ -167,7 +167,7 @@ export default {
                 click: () => {
                   console.log(params.row.scheduleId)
                   this.$router.push({
-                    path: 'buy',
+                    path: '/order',
                     query: {
                       id: this.movieDetails.id,
                       scheduleId: params.row.id
