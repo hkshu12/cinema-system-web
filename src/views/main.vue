@@ -14,7 +14,7 @@
             <img :src="movie.posterUrl"
                  height="320px"
                  width="240px"
-                 style="margin-right:20px;margin-top:20px;">
+                 style="margin-right:40px;margin-top:20px;">
             </router-link>
           </div>
         </div>
@@ -48,7 +48,7 @@ li {
 }
 .recentMovies {
   margin-top: 20px;
-  margin-left: 20px;
+  margin-left: 40px;
   text-align: left;
 }
 .hotMoviesCard {

@@ -7,7 +7,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/index'
+      redirect: '/login'
     },
     {
       path: '/index',
@@ -39,14 +39,14 @@ export default new Router({
           component: () => import('@/views/movie')
         },
         {
-          path: '/my/profile',
-          name: 'myProfile',
-          component: () => import('@/views/my/profile')
-        },
-        {
           path: '/my/tickets',
           name: 'myTickets',
           component: () => import('@/views/my/tickets')
+        },
+        {
+          path: '/my/vip',
+          name: 'myVIP',
+          component: () => import('@/views/my/vip')
         }
       ]
     },

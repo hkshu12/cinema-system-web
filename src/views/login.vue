@@ -73,7 +73,6 @@
 </style>
 
 <script>
-import myFooter from '@/components/footer'
 export default {
   data () {
     return {
@@ -93,9 +92,6 @@ export default {
       if (!this.formData.password) {
         isValidate = false
       }
-      console.log(this.formData.username)
-      console.log(this.formData.password)
-      console.log(isValidate)
       return isValidate
     },
 
@@ -111,14 +107,15 @@ export default {
         data: {
           username: that.formData.username,
           password: that.formData.password
-        }}).then(function (res) {
+        }
+      }).then(function (res) {
         if (res.data.success) {
           sessionStorage.setItem('username', that.formData.username)
           sessionStorage.setItem('id', res.data.content.id)
           sessionStorage.setItem('role', 'user')
           alert('登录成功！')
           if (res.data.content.role !== 'user') {
-            that.$router.push('/')
+            that.$router.push('main')
           } else {
             that.$router.push('admin')
           }
@@ -130,10 +127,6 @@ export default {
         alert(error)
       })
     }
-  },
-
-  components: {
-    myFooter
   }
 }
 </script>

@@ -63,7 +63,6 @@
                      :data="item.scheduleItemList"
                      stripe></Table>
             </TabPane>
-            <p slot="extra" style="color:grey">只显示最近5天排片</p>
           </Tabs>
         </Card>
       </div>
@@ -165,7 +164,6 @@ export default {
             return h('Button', {
               on: {
                 click: () => {
-                  console.log(params.row.scheduleId)
                   this.$router.push({
                     path: '/order',
                     query: {
@@ -208,7 +206,7 @@ export default {
         url: 'http://localhost:8080/schedule/search/audience?movieId=' + that.movieDetails.id
       }).then(function (res) {
         if (res.data.success) {
-          that.schedule = res.data.content.slice(0, 5)
+          that.schedule = res.data.content
         } else {
           alert(res.data.message)
         }
@@ -249,7 +247,6 @@ export default {
     },
     scroll2View (name) {
       let view = document.querySelector('#' + name)
-      console.log(name)
       if (view) {
         view.scrollIntoView()
       }

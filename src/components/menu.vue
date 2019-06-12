@@ -34,10 +34,9 @@
         <template slot="title">
           <Icon type="md-person" />我的账户
         </template>
-        <MenuItem name="profile" to='my/profile'>个人资料</MenuItem>
-        <MenuItem name="myLikeMovie" to='my/likeMovie'>我喜欢的</MenuItem>
-        <MenuItem name="myOrders" to='my/tickets'>我的影票</MenuItem>
-        <MenuItem name="myVIP" to='my/vip'>我的会员</MenuItem>
+        <MenuItem name="myLikeMovie" to='/my/likeMovie'>我喜欢的</MenuItem>
+        <MenuItem name="myOrders" to='/my/tickets'>我的影票</MenuItem>
+        <MenuItem name="myVIP" to='/my/vip'>我的会员</MenuItem>
         <MenuItem name="logout" v-on:click.native="logout()">注销登录</MenuItem>
       </Submenu>
     </div>
@@ -70,13 +69,12 @@ export default {
   },
   methods: {
     logout () {
-      console.log('11111')
       sessionStorage.removeItem('loginStatus')
-      this.$router.go(0)
+      sessionStorage.removeItem('id')
+      this.$router.push('/login')
     },
     search () {
       let that = this
-      console.log('search!')
       this.$router.push({
         path: '/search',
         query: {
