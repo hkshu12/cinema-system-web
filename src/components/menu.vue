@@ -3,17 +3,18 @@
         mode="horizontal"
         theme="dark">
     <div class="menu-left">
-      <MenuItem name="LOGO" to="/index"><b>CINEMA</b></MenuItem>
-      <MenuItem name="movie" to="/index/movie">电影介绍</MenuItem>
-      <MenuItem name="schedule">影院热映</MenuItem>
-      <MenuItem name="4" to="/index/order">444</MenuItem>
+      <MenuItem name="LOGO" to="/main"><b>CINEMA</b></MenuItem>
+      <MenuItem name="movielist" to="/movielist">所有电影</MenuItem>
+      <MenuItem name="3">333</MenuItem>
+      <MenuItem name="4" to="/order">444</MenuItem>
     </div>
     <div class="menu-right"
          v-if="loginStatus != 'user'">
       <MenuItem name="search">
       <Input v-model="searchKey"
              placeholder="请输入搜索关键词"
-             icon="ios-search" />
+             icon="ios-search"
+             @click="search" />
       </MenuItem>
       <MenuItem name="login"
                 to="/login">登录</MenuItem>
@@ -25,7 +26,8 @@
       <MenuItem name="search">
       <Input v-model="searchKey"
              placeholder="请输入搜索关键词"
-             icon="ios-search" />
+             icon="ios-search"
+             @on-click="search" />
       </MenuItem>
       <!-- 个人资料之类的-->
       <Submenu name="profile">
@@ -71,8 +73,17 @@ export default {
       console.log('11111')
       sessionStorage.removeItem('loginStatus')
       this.$router.go(0)
+    },
+    search () {
+      let that = this
+      console.log('search!')
+      this.$router.push({
+        path: '/search',
+        query: {
+          keyword: that.searchKey
+        }
+      })
     }
-
   }
 }
 </script>

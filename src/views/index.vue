@@ -4,11 +4,9 @@
       <Menu v-bind:loginStatus="loginStatus"></Menu>
     </Header>
     <Content style="padding: 10px 30px;min-height: 600px">
-      <Card style="padding: 0 50px;">
-        <div style="min-height: 200px;">
-          <router-view></router-view>
-        </div>
-      </Card>
+      <div style="min-height: 200px;">
+        <router-view></router-view>
+      </div>
     </Content>
     <Footer>
       <myFooter></myFooter>

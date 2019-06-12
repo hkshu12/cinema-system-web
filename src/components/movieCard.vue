@@ -3,7 +3,7 @@
     <p slot="title"
        class="movieCard-movieName">
       <Icon type="ios-film-outline" />&nbsp;{{movie.name}}
-      <Icon type="ios-arrow-forward" />
+      <span v-if="movie.status==1" style="color:grey">&nbsp;已下架</span>
     </p>
     <p slot="extra"
        id="likeCount"
