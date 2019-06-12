@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <Sider class="left-bar">
+    <!-- <Sider class="left-bar">
       <Menu theme='dark'
             @on-select="scroll2View"
             width="auto">
@@ -10,12 +10,12 @@
         <MenuItem name="movie-details">电影详情</MenuItem>
         <MenuItem name="movie-schedule">电影排片</MenuItem>
       </Menu>
-    </Sider>
+    </Sider> -->
     <Content class="content">
       <div class='movie-details'
            id="movie-details">
         <img id="movie-img"
-             src=movieDetails.posterURL>
+             :src='movieDetails.posterUrl'>
         <div class="movie-basic-info">
           <div>
           <div style="display:inline"><span class="title"
@@ -56,8 +56,8 @@
            id="movie-schedule">
         <Card>
           <Tabs id="schedule-tabs">
-            <TabPane v-for="item in schedule.slice(0, 5)"
-                     :key="item.index"
+            <TabPane v-for="item in schedule"
+                     :key="item.id"
                      :label="item.date.split('T')[0]">
               <Table :columns="columns"
                      :data="item.scheduleItemList"
@@ -93,7 +93,7 @@
   margin-bottom: 20px;
 }
 .content {
-  margin-left: 200px;
+  /* margin-left: 200px; */
   font-size: 14px;
 }
 .movie-basic-info {
@@ -208,7 +208,7 @@ export default {
         url: 'http://localhost:8080/schedule/search/audience?movieId=' + that.movieDetails.id
       }).then(function (res) {
         if (res.data.success) {
-          that.schedule = res.data.content
+          that.schedule = res.data.content.slice(0, 5)
         } else {
           alert(res.data.message)
         }

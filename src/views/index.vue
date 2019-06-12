@@ -3,7 +3,7 @@
     <Header>
       <Menu v-bind:loginStatus="loginStatus"></Menu>
     </Header>
-    <Content style="padding: 10px 30px;min-height: 600px">
+    <Content style="min-height: 600px">
       <div style="min-height: 200px;">
         <router-view></router-view>
       </div>

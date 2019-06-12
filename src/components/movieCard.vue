@@ -13,7 +13,7 @@
 
     <div class="movieCard-content">
       <div class="movieCard-content-poster">
-        <img :src="movie.posterURL"
+        <img :src="movie.posterUrl"
              height="150px"
              width="100px" />
       </div>
