@@ -115,9 +115,9 @@ export default {
         if (res.data.success) {
           sessionStorage.setItem('username', that.formData.username)
           sessionStorage.setItem('id', res.data.content.id)
-          sessionStorage.setItem('role', res.data.content.role)
+          sessionStorage.setItem('role', 'user')
           alert('登录成功！')
-          if (res.data.content.role === 'user') {
+          if (res.data.content.role !== 'user') {
             that.$router.push('/')
           } else {
             that.$router.push('admin')
