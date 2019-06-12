@@ -45,7 +45,7 @@
             <div style="display: flex;flex-direction: column; align-items: flex-start;margin-left: 10px">
               <div style="margin-bottom: 3px">影厅: {{hallName}}</div>
               <div style="margin-bottom: 3px">场次：{{scheduleTime}}</div>
-              <div style="margin-bottom: 3px">座位：{{pickedSeats}}</div>
+              <div style="margin-bottom: 3px">座位：{{pickedSeatsToStr}}</div>
             </div>
           </div>
           <Button type="primary" size="large" style="margin-top: 20px">确定选座</Button>
@@ -106,6 +106,10 @@ export default {
   computed: {
     scheduleTime () {
       return this.startTime.substring(0, 10) + ' ' + this.startTime.substring(11, 16) + ' 至 ' + this.endTime.substring(0, 10) + ' ' + this.endTime.substring(11, 16)
+    },
+    pickedSeatsToStr () {
+      let result = ''
+      return result
     }
   },
   mounted () {
@@ -152,6 +156,7 @@ export default {
       })
     },
     addSeat (row, col) {
+      let pickedArray = []
       let tempArray = this.seatsArray
       if (this.seatsArray[row][col] === 0) {
         tempArray[row][col] = 3
@@ -159,6 +164,17 @@ export default {
         tempArray[row][col] = 0
       }
       this.seatsArray = tempArray.slice()
+      for (let i = 0; i < this.seatsArray.length; i++) {
+        for (let j = 0; j < this.seatsArray[0].length; j++) {
+          if (this.seatsArray[i][j] === 3) {
+            pickedArray.push({
+              rowIndex: i,
+              columnIndex: j
+            })
+          }
+        }
+      }
+      this.pickedSeats = pickedArray.slice()
     }
   }
 }
