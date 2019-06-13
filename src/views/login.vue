@@ -85,7 +85,7 @@ export default {
 
   methods: {
     validateLoginForm () {
-      var isValidate = true
+      let isValidate = true
       if (!this.formData.username) {
         isValidate = false
       }
