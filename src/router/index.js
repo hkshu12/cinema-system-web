@@ -7,7 +7,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/index'
+      redirect: '/login'
     },
     {
       path: '/index',
@@ -39,14 +39,19 @@ export default new Router({
           component: () => import('@/views/movie')
         },
         {
-          path: '/my/profile',
-          name: 'myProfile',
-          component: () => import('@/views/my/profile')
-        },
-        {
           path: '/my/tickets',
           name: 'myTickets',
           component: () => import('@/views/my/tickets')
+        },
+        {
+          path: '/my/vip',
+          name: 'myVIP',
+          component: () => import('@/views/my/vip')
+        },
+        {
+          path: '/my/coupons',
+          name: 'myCoupons',
+          component: () => import('@/views/my/coupons')
         }
       ]
     },
@@ -59,6 +64,44 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: () => import('@/views/register')
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      redirect: '/admin/movie',
+      component: () => import('@/views/admin/admin'),
+      children: [
+        {
+          path: '/admin/movie',
+          name: 'adminMovieManage',
+          component: () => import('@/views/admin/movieManage')
+        },
+        {
+          path: '/admin/schedule',
+          name: 'adminScheduleManage',
+          component: () => import('@/views/admin/scheduleManage')
+        },
+        {
+          path: '/admin/promotion',
+          name: 'adminPromotionManage',
+          component: () => import('@/views/admin/promotionManage')
+        },
+        {
+          path: '/admin/cinema',
+          name: 'adminCinemaManage',
+          component: () => import('@/views/admin/cinemaManage')
+        },
+        {
+          path: '/admin/statistic',
+          name: 'adminStatistic',
+          component: () => import('@/views/admin/statistic')
+        },
+        {
+          path: '/admin/staff',
+          name: 'staffManage',
+          component: () => import('@/views/admin/staffManage')
+        }
+      ]
     }
   ]
 })

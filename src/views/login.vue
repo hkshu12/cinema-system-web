@@ -61,7 +61,7 @@
 }
 .layout-content-row-col2 {
   position: relative;
-  height: 640px;
+  height: 720px;
 }
 .layout-content-row-col2-card {
   margin-top: 100px;
@@ -73,7 +73,6 @@
 </style>
 
 <script>
-import myFooter from '@/components/footer'
 export default {
   data () {
     return {
@@ -93,9 +92,6 @@ export default {
       if (!this.formData.password) {
         isValidate = false
       }
-      console.log(this.formData.username)
-      console.log(this.formData.password)
-      console.log(isValidate)
       return isValidate
     },
 
@@ -111,18 +107,25 @@ export default {
         data: {
           username: that.formData.username,
           password: that.formData.password
-        }}).then(function (res) {
+        }
+      }).then((res) => {
         if (res.data.success) {
           sessionStorage.setItem('username', that.formData.username)
           sessionStorage.setItem('id', res.data.content.id)
-          sessionStorage.setItem('role', 'user')
-          alert('登录成功！')
-          if (res.data.content.role !== 'user') {
-            that.$router.push('/')
-          } else {
-            that.$router.push('admin')
+          this.$Message.success('登录成功')
+          if (res.data.content.userlevel === 0) {
+            that.$router.push('main')
+            sessionStorage.setItem('role', 'user')
+            sessionStorage.setItem('loginStatus', 'user')
+          } else if (res.data.content.userlevel === 1) {
+            that.$router.push('admin/index')
+            sessionStorage.setItem('role', 'manager')
+            sessionStorage.setItem('loginStatus', 'manager')
+          } else if (res.data.content.userlevel === 2) {
+            that.$router.push('admin/index')
+            sessionStorage.setItem('role', 'admin')
+            sessionStorage.setItem('loginStatus', 'admin')
           }
-          sessionStorage.setItem('loginStatus', 'user')
         } else {
           alert(res.data.content.message)
         }
@@ -130,10 +133,6 @@ export default {
         alert(error)
       })
     }
-  },
-
-  components: {
-    myFooter
   }
 }
 </script>

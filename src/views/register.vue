@@ -52,9 +52,6 @@
         </Col>
       </Row>
     </Content>
-    <Footer>
-      <myFooter></myFooter>
-    </Footer>
   </Layout>
 </template>
 <style>
@@ -134,11 +131,28 @@ export default {
 
   methods: {
     handleSubmit (name) {
+      let that = this
       this.$refs[name].validate((valid) => {
         if (valid) {
-          this.$Message.success('Success')
+          this.$axios({
+            method: 'post',
+            url: 'http://localhost:8080/register',
+            data: {
+              username: that.formData.username,
+              password: that.formData.password,
+              secondPassword: that.formData.repassword
+            }
+          }).then(function (res) {
+            if (res.data.success) {
+              this.$Message.success('注册成功')
+            } else {
+              alert(res.data.message)
+            }
+          }).catch(function (error) {
+            alert(error)
+          })
         } else {
-          this.$Message.error('Fail')
+          this.$Message.error('请检查输入的信息')
         }
       })
     }

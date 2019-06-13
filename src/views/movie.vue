@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <Sider class="left-bar">
+    <!-- <Sider class="left-bar">
       <Menu theme='dark'
             @on-select="scroll2View"
             width="auto">
@@ -10,12 +10,12 @@
         <MenuItem name="movie-details">电影详情</MenuItem>
         <MenuItem name="movie-schedule">电影排片</MenuItem>
       </Menu>
-    </Sider>
-    <Content class="content">
+    </Sider> -->
+    <Content class="content" style="width:90%;margin:0 auto;">
       <div class='movie-details'
            id="movie-details">
         <img id="movie-img"
-             src=movieDetails.posterUrl>
+             :src='movieDetails.posterUrl'>
         <div class="movie-basic-info">
           <div>
           <div style="display:inline"><span class="title"
@@ -56,14 +56,13 @@
            id="movie-schedule">
         <Card>
           <Tabs id="schedule-tabs">
-            <TabPane v-for="item in schedule.slice(0, 5)"
-                     :key="item.index"
+            <TabPane v-for="item in schedule"
+                     :key="item.id"
                      :label="item.date.split('T')[0]">
               <Table :columns="columns"
                      :data="item.scheduleItemList"
                      stripe></Table>
             </TabPane>
-            <p slot="extra" style="color:grey">只显示最近5天排片</p>
           </Tabs>
         </Card>
       </div>
@@ -93,7 +92,7 @@
   margin-bottom: 20px;
 }
 .content {
-  margin-left: 200px;
+  /* margin-left: 200px; */
   font-size: 14px;
 }
 .movie-basic-info {
@@ -119,8 +118,8 @@
   min-height: 40px;
 }
 #movie-schedule {
-  height: 800px;
-  margin-top: 40px;
+  height: 600px;
+  margin:40px auto;
 }
 </style>
 
@@ -165,7 +164,6 @@ export default {
             return h('Button', {
               on: {
                 click: () => {
-                  console.log(params.row.scheduleId)
                   this.$router.push({
                     path: '/order',
                     query: {
@@ -249,7 +247,6 @@ export default {
     },
     scroll2View (name) {
       let view = document.querySelector('#' + name)
-      console.log(name)
       if (view) {
         view.scrollIntoView()
       }

@@ -87,7 +87,7 @@
     outline: none;
   }
   .add-seat{
-    background: url("../assets/add-seat.png")center center no-repeat;
+    background: url("../assets/selected-seat.png")center center no-repeat;
     background-size: 100% 100%;
     width: 24px;
     height: 24px;
