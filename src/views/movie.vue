@@ -29,8 +29,8 @@
             </Button>
           </div>
           </div>
-          <div style="margin-top: 20px;"><span>简 介 ：</span><span id="movie-description"
-                  class="gray-text">{{movieDetails.description}}</span>
+          <div style="margin-top: 20px;">
+            <span>简 介 ：</span><span id="movie-description">{{movieDetails.description}}</span>
           </div>
           <div><span>上 映 ：</span><span id="movie-startDate">{{new Date(movieDetails.startDate).toLocaleDateString()}}</span></div>
           <div><span>类 型 ：</span><span id="movie-type">{{movieDetails.type}}</span></div>
@@ -44,6 +44,7 @@
       <div class="movie-schedule"
            id="movie-schedule">
         <Card>
+          <p slot="extra" style="color:grey">只显示最近{{view}}天排片</p>
           <Tabs id="schedule-tabs">
             <TabPane v-for="item in schedule"
                      :key="item.id"
@@ -98,6 +99,7 @@ export default {
     return {
       movieDetails: {},
       schedule: {},
+      view: '',
       columns: [
         {
           title: '放映开始时间',
@@ -150,6 +152,7 @@ export default {
   },
   mounted: function () {
     this.getMovieInfo()
+    this.getView()
   },
   methods: {
     getMovieInfo () {
@@ -161,6 +164,21 @@ export default {
         if (res.data.success) {
           that.movieDetails = res.data.content
           that.getMovieSchedule()
+        } else {
+          alert(res.data.message)
+        }
+      }).catch(function (error) {
+        alert(error)
+      })
+    },
+    getView () {
+      let that = this
+      this.$axios({
+        method: 'get',
+        url: 'http://localhost:8080/schedule/view'
+      }).then(function (res) {
+        if (res.data.success) {
+          that.view = res.data.content
         } else {
           alert(res.data.message)
         }
