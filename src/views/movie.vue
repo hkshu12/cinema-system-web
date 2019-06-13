@@ -11,7 +11,7 @@
         <MenuItem name="movie-schedule">电影排片</MenuItem>
       </Menu>
     </Sider> -->
-    <Content class="content">
+    <Content class="content" style="width:90%;margin:0 auto;">
       <div class='movie-details'
            id="movie-details">
         <img id="movie-img"
@@ -118,8 +118,8 @@
   min-height: 40px;
 }
 #movie-schedule {
-  height: 800px;
-  margin-top: 40px;
+  height: 600px;
+  margin:40px auto;
 }
 </style>
 

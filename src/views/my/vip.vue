@@ -7,8 +7,8 @@
         <Card style="height:auto;margin-top:30px;">
           <p slot="title"
              style="text-align:left;font-size:20px;">会员卡</p>
-          <a slot="extra"
-             v-if="true"
+          <a v-if="isVIP"
+             slot="extra"
              @click="chargeModal">我要充值</a>
           <div class="card-content">
             <div v-if="!isVIP"
@@ -221,7 +221,7 @@ export default {
           account: that.formData.account,
           password: that.formData.password
         }
-      }).then(function (res) {
+      }).then((res) => {
         if (res.data.success) {
           this.$router.go(0)
         } else {
@@ -246,7 +246,7 @@ export default {
           vipId: that.VIPCard.id,
           amount: that.formData.amount
         }
-      }).then(function (res) {
+      }).then((res) => {
         if (res.data.success) {
           this.$router.go(0)
         } else {

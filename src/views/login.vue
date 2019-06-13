@@ -61,7 +61,7 @@
 }
 .layout-content-row-col2 {
   position: relative;
-  height: 640px;
+  height: 720px;
 }
 .layout-content-row-col2-card {
   margin-top: 100px;
@@ -108,12 +108,12 @@ export default {
           username: that.formData.username,
           password: that.formData.password
         }
-      }).then(function (res) {
+      }).then((res) => {
         if (res.data.success) {
           sessionStorage.setItem('username', that.formData.username)
           sessionStorage.setItem('id', res.data.content.id)
           sessionStorage.setItem('role', 'user')
-          alert('登录成功！')
+          this.$Message.success('登录成功')
           if (res.data.content.role !== 'user') {
             that.$router.push('main')
           } else {

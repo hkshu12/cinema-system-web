@@ -8,21 +8,16 @@
         <router-view></router-view>
       </div>
     </Content>
-    <Footer>
-      <myFooter></myFooter>
-    </Footer>
   </Layout>
 </template>
 
 <script>
 import Menu from '@/components/menu'
-import myFooter from '@/components/footer'
 import movieCard from '@/components/movieCard'
 import orderCard from '@/components/orderCard'
 export default {
   components: {
     Menu,
-    myFooter,
     movieCard,
     orderCard
   },

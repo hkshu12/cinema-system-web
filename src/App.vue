@@ -1,15 +1,20 @@
 <template>
   <div id="app">
     <router-view></router-view>
+    <Footer>
+      <myFooter></myFooter>
+    </Footer>
   </div>
 </template>
 
 <script>
 import index from './views/index.vue'
+import myFooter from '@/components/footer'
 export default {
   name: 'App',
   components: {
-    index
+    index,
+    myFooter
   }
 }
 </script>

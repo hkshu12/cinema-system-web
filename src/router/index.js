@@ -47,6 +47,11 @@ export default new Router({
           path: '/my/vip',
           name: 'myVIP',
           component: () => import('@/views/my/vip')
+        },
+        {
+          path: '/my/coupons',
+          name: 'myCoupons',
+          component: () => import('@/views/my/coupons')
         }
       ]
     },
