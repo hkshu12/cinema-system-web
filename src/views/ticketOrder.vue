@@ -1,11 +1,12 @@
 <template>
-  <Card style="min-height: 600px">
+  <Card style="min-height: 600px;margin: 15px">
   <div style="min-height: 500px">
-    <Steps :current="step" size="small">
+    <Steps :current="step" size="small" style="margin-top: 15px">
       <Step title="选择座位"></Step>
       <Step title="确认订单"></Step>
-      <Step title="完成支付"></Step>
+      <Step title="支付完成"></Step>
     </Steps>
+    <!--选择座位-->
     <Row v-if="step == 0">
       <Col span="16">
         <Card style="margin-top: 50px;width: 80%;min-height: 400px">
@@ -52,19 +53,71 @@
         </div>
       </Col>
     </Row>
+    <!--支付订单-->
     <div v-else-if="step === 1" style="margin-top: 50px;padding: 10px;">
-      <Table :columns="orderTable" :data="tableInfo"></Table>
+      <Table :columns="orderTable" :data="tableInfo" style="min-height: 80px"></Table>
       <div style="display: flex;justify-content: flex-start">
-        <Select v-model="selectedCoupon" style="width:200px;margin-top: 15px" v-on:change="couponSelect">
-          <Option v-for="coupon in couponList" :value="coupon.name" :key="coupon.id" :label="coupon.name">
+        <div style="margin-top: 15px">
+          <Select v-model="selectedCouponIndex" style="width:200px;" v-bind:disabled="couponList.length === 0" v-bind:placeholder="couponList.length === 0?'无可用优惠券':'请选择优惠券'" @on-change="couponSelect()">
+          <Option v-for="coupon in couponList" :value="coupon.index" :key="coupon.index" :label="coupon.name">
             <span>{{coupon.name}}</span>
-            <span style="float:right;color:#ccc">满{{coupon.targetAmount}}减{{coupon.discountAmount}}</span>
+            <span v-if="coupon.index !== 0" style="float:right;color:#ccc">满{{coupon.targetAmount}}减{{coupon.discountAmount}}</span>
           </Option>
         </Select>
+        </div>
+        <div style="margin-top: 15px;margin-left: 20px">
+          <RadioGroup v-model="selectedPay" type="button">
+            <Radio label="银行卡">
+              <Icon type="ios-card-outline" />
+              <span>银行卡支付</span>
+            </Radio>
+            <Radio label="会员卡" v-bind:disabled="!isVip">
+              <Icon type="md-contact" />
+              <span>会员卡支付</span>
+            </Radio>
+          </RadioGroup>
+        </div>
+        <div  style="margin-top: 15px;margin-left: auto;margin-right: 100px;display: flex;flex-direction: column;align-items: flex-start">
+          <div>总金额：{{tableInfo[0].totalPrice}}</div>
+          <div>优惠金额：{{discountAmount}}元</div>
+        </div>
+      </div>
+      <Divider style="width: 60%"></Divider>
+      <div style="display: flex;flex-direction: column;align-items: flex-end;margin-right: 100px;">
+        <div>实际付款：{{ticketPrice*pickedSeats.length-discountAmount}}元</div>
+        <Button size="large" style="margin-top: 10px" type="primary" v-on:click="handleConfirm">确定支付</Button>
       </div>
     </div>
-    <div v-else-if="step === 2" style="margin-top: 50px;padding: 10px"></div>
+    <!--订单完成-->
+    <div v-else-if="step === 2" style="margin-top: 50px;padding: 10px">
+      <div><Icon type="md-checkmark-circle-outline" size="300"/></div>
+      <div>购买成功，请至<b>我的电影票</b>中查看</div>
+    </div>
   </div>
+    <!--银行卡支付modal-->
+    <Modal v-model="bankCardModal"
+           title="银行卡支付"
+           @on-ok="handleBankCard">
+      <div style="margin-left:20px;">
+        <div>
+          <Form :model="bankCardData"
+                :label-width="80"
+                label-position="left">
+            <br>
+            <FormItem label="银行卡号">
+              <Input v-model="bankCardData.account"
+                     placeholder="请输入银行卡号" />
+            </FormItem>
+            <br>
+            <FormItem label="密码">
+              <Input v-model="bankCardData.password"
+                     type="password"
+                     placeholder="请输入密码" />
+            </FormItem>
+          </Form>
+        </div>
+      </div>
+    </Modal>
   </Card>
 </template>
 <style>
@@ -87,7 +140,7 @@
     outline: none;
   }
   .add-seat{
-    background: url("../assets/selected-seat.png")center center no-repeat;
+    background: url("../assets/add-seat.png")center center no-repeat;
     background-size: 100% 100%;
     width: 24px;
     height: 24px;
@@ -127,7 +180,16 @@ export default {
       ],
       tableInfo: [],
       couponList: [],
-      selectedCoupon: ''
+      discountAmount: 0,
+      selectedCouponIndex: Number,
+      selectedPay: '银行卡',
+      selectedCouponId: 0,
+      bankCardModal: false,
+      bankCardData: {
+        account: '',
+        password: ''
+      },
+      orderInfo: Object
     }
   },
   computed: {
@@ -241,8 +303,6 @@ export default {
         if (res.data.success) {
           that.isVip = true
           that.vipInfo = res.data.content
-        } else {
-          alert(res.data.content.message)
         }
       }).catch(function (error) {
         alert(error)
@@ -250,6 +310,7 @@ export default {
     },
     initOrder (orderInfo) {
       this.step = 1
+      this.orderInfo = orderInfo
       let tempTable = [{movieName: this.movieName,
         hallName: this.hallName,
         scheduleTime: this.scheduleTime,
@@ -258,10 +319,70 @@ export default {
         totalPrice: this.ticketPrice * this.pickedSeats.length + '元'
       }]
       this.tableInfo = tempTable
-      this.couponList = orderInfo.coupons
+      let tempCoupons = []
+      tempCoupons.push({
+        index: 0,
+        name: '不使用奖券',
+        targetAmount: 0,
+        discountAmount: 0
+      })
+      for (let i = 0; i < orderInfo.coupons.length; i++) {
+        let temp = orderInfo.coupons[i]
+        temp.index = i + 1
+        tempCoupons.push(temp)
+      }
+      this.couponList = tempCoupons
     },
     couponSelect () {
-      console.log(this.selectedCoupon)
+      console.log(this.selectedCouponIndex)
+      if (typeof (this.selectedCouponIndex) !== 'function') {
+        if (this.couponList[this.selectedCouponIndex].targetAmount <= this.ticketPrice * this.pickedSeats.length) {
+          this.discountAmount = this.couponList[this.selectedCouponIndex].discountAmount
+        }
+        if (this.selectedCouponIndex !== 0) {
+          this.selectedCouponId = this.couponList[this.selectedCouponIndex].id
+        }
+      }
+    },
+    handleConfirm () {
+      let that = this
+      if (this.selectedPay === '银行卡') {
+        this.bankCardModal = true
+      } else {
+        this.$axios({
+          method: 'post',
+          url: 'http://localhost:8080/ticket/vip/buy?ticketId=' + that.orderInfo.ticketId + '&couponId=' + that.selectedCouponId
+        }).then(function (res) {
+          if (res.data.success) {
+            that.step = 2
+          } else {
+            alert(res.data.message)
+          }
+        }).catch(function (error) {
+          alert(error)
+        })
+      }
+    },
+    handleBankCard () {
+      let that = this
+      this.$axios({
+        method: 'post',
+        url: 'http://localhost:8080/ticket/buy?ticketId=' + that.orderInfo.ticketId + '&couponId=' + that.selectedCouponId,
+        data: {
+          cardNumber: that.bankCardData.account,
+          password: that.bankCardData.password
+        }
+      }).then(function (res) {
+        if (res.data.success) {
+          that.step = 2
+        } else {
+          alert(res.data.message)
+        }
+      }).catch(function (error) {
+        alert(error)
+      })
+      this.bankCardModal = false
+      this.step = 2
     }
   }
 }
