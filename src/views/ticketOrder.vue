@@ -1,12 +1,12 @@
 <template>
   <Card style="min-height: 600px">
   <div style="min-height: 500px">
-    <Steps :current="0" size="small">
+    <Steps :current="step" size="small">
       <Step title="选择座位"></Step>
       <Step title="确认订单"></Step>
       <Step title="完成支付"></Step>
     </Steps>
-    <Row>
+    <Row v-if="step == 0">
       <Col span="16">
         <Card style="margin-top: 50px;width: 80%;min-height: 400px">
           <h3 style="margin-bottom: 10px">选择座位</h3>
@@ -48,10 +48,22 @@
               <div style="margin-bottom: 3px">座位：{{pickedSeatsToStr}}</div>
             </div>
           </div>
-          <Button type="primary" size="large" style="margin-top: 20px">确定选座</Button>
+          <Button type="primary" size="large" style="margin-top: 20px" v-on:click="lockSeats" v-bind:disabled="pickedSeats.length === 0">确定选座</Button>
         </div>
       </Col>
     </Row>
+    <div v-else-if="step === 1" style="margin-top: 50px;padding: 10px;">
+      <Table :columns="orderTable" :data="tableInfo"></Table>
+      <div style="display: flex;justify-content: flex-start">
+        <Select v-model="selectedCoupon" style="width:200px;margin-top: 15px" v-on:change="couponSelect">
+          <Option v-for="coupon in couponList" :value="coupon.name" :key="coupon.id" :label="coupon.name">
+            <span>{{coupon.name}}</span>
+            <span style="float:right;color:#ccc">满{{coupon.targetAmount}}减{{coupon.discountAmount}}</span>
+          </Option>
+        </Select>
+      </div>
+    </div>
+    <div v-else-if="step === 2" style="margin-top: 50px;padding: 10px"></div>
   </div>
   </Card>
 </template>
@@ -90,6 +102,8 @@ export default {
   name: 'ticketOrder',
   data () {
     return {
+      scheduleId: '',
+      step: 0,
       seatsArray: [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0]],
       posterUrl: '',
       movieName: '',
@@ -100,15 +114,35 @@ export default {
       startTime: '',
       endTime: '',
       ticketPrice: 0,
-      pickedSeats: []
+      pickedSeats: [],
+      isVip: false,
+      vipInfo: Object,
+      orderTable: [
+        {title: '电影', key: 'movieName'},
+        {title: '影厅', key: 'hallName'},
+        {title: '场次', key: 'scheduleTime'},
+        {title: '座位', key: 'seats'},
+        {title: '单价', key: 'ticketPrice'},
+        {title: '总价', key: 'totalPrice'}
+      ],
+      tableInfo: [],
+      couponList: [],
+      selectedCoupon: ''
     }
   },
   computed: {
     scheduleTime () {
-      return this.startTime.substring(0, 10) + ' ' + this.startTime.substring(11, 16) + ' 至 ' + this.endTime.substring(0, 10) + ' ' + this.endTime.substring(11, 16)
+      return this.startTime.substring(5, 10) + ' ' + this.startTime.substring(11, 16) + ' 至 ' + this.endTime.substring(5, 10) + ' ' + this.endTime.substring(11, 16)
     },
     pickedSeatsToStr () {
       let result = ''
+      if (this.pickedSeats.length === 0) {
+        result = '还未选择座位'
+      } else {
+        for (let i = 0; i < this.pickedSeats.length; i++) {
+          result = result + (this.pickedSeats[i].rowIndex + 1) + '排' + (this.pickedSeats[i].columnIndex + 1) + '座' + ' '
+        }
+      }
       return result
     }
   },
@@ -118,6 +152,7 @@ export default {
   },
   methods: {
     initSeats (scheduleId) {
+      this.scheduleId = scheduleId
       let that = this
       this.$axios({
         method: 'get',
@@ -175,6 +210,58 @@ export default {
         }
       }
       this.pickedSeats = pickedArray.slice()
+    },
+    lockSeats () {
+      let that = this
+      // 锁定座位
+      this.$axios({
+        method: 'post',
+        url: 'http://localhost:8080/ticket/lockSeat',
+        data: {
+          userId: sessionStorage.getItem('id'),
+          scheduleId: that.scheduleId,
+          seats: that.pickedSeats
+        }
+      }).then(function (res) {
+        if (res.data.success) {
+          let orderInfo = res.data.content
+          console.log(orderInfo)
+          that.initOrder(orderInfo)
+        } else {
+          alert(res.data.message)
+        }
+      }).catch(function (error) {
+        alert(error)
+      })
+      // 获取会员信息
+      this.$axios({
+        method: 'get',
+        url: 'http://localhost:8080/vip/' + sessionStorage.getItem('id') + '/get'
+      }).then(function (res) {
+        if (res.data.success) {
+          that.isVip = true
+          that.vipInfo = res.data.content
+        } else {
+          alert(res.data.content.message)
+        }
+      }).catch(function (error) {
+        alert(error)
+      })
+    },
+    initOrder (orderInfo) {
+      this.step = 1
+      let tempTable = [{movieName: this.movieName,
+        hallName: this.hallName,
+        scheduleTime: this.scheduleTime,
+        seats: this.pickedSeatsToStr,
+        ticketPrice: this.ticketPrice + '元',
+        totalPrice: this.ticketPrice * this.pickedSeats.length + '元'
+      }]
+      this.tableInfo = tempTable
+      this.couponList = orderInfo.coupons
+    },
+    couponSelect () {
+      console.log(this.selectedCoupon)
     }
   }
 }

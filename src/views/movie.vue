@@ -15,7 +15,7 @@
       <div class='movie-details'
            id="movie-details">
         <img id="movie-img"
-             src=movieDetails.posterURL>
+             src=movieDetails.posterUrl>
         <div class="movie-basic-info">
           <div>
           <div style="display:inline"><span class="title"
