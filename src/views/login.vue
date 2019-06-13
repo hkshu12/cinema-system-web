@@ -112,14 +112,20 @@ export default {
         if (res.data.success) {
           sessionStorage.setItem('username', that.formData.username)
           sessionStorage.setItem('id', res.data.content.id)
-          sessionStorage.setItem('role', 'user')
           this.$Message.success('登录成功')
-          if (res.data.content.role !== 'user') {
+          if (res.data.content.userlevel === 0) {
             that.$router.push('main')
-          } else {
-            that.$router.push('admin')
+            sessionStorage.setItem('role', 'user')
+            sessionStorage.setItem('loginStatus', 'user')
+          } else if (res.data.content.userlevel === 1) {
+            that.$router.push('admin/index')
+            sessionStorage.setItem('role', 'manager')
+            sessionStorage.setItem('loginStatus', 'manager')
+          } else if (res.data.content.userlevel === 2) {
+            that.$router.push('admin/index')
+            sessionStorage.setItem('role', 'admin')
+            sessionStorage.setItem('loginStatus', 'admin')
           }
-          sessionStorage.setItem('loginStatus', 'user')
         } else {
           alert(res.data.content.message)
         }

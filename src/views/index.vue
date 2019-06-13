@@ -14,12 +14,10 @@
 <script>
 import Menu from '@/components/menu'
 import movieCard from '@/components/movieCard'
-import orderCard from '@/components/orderCard'
 export default {
   components: {
     Menu,
-    movieCard,
-    orderCard
+    movieCard
   },
   data () {
     return {
