@@ -1,16 +1,5 @@
 <template>
   <Layout>
-    <!-- <Sider class="left-bar">
-      <Menu theme='dark'
-            @on-select="scroll2View"
-            width="auto">
-        <img class="avatar-img"
-             src="../assets/avatar.jpg">
-        <div class="divider"></div>
-        <MenuItem name="movie-details">电影详情</MenuItem>
-        <MenuItem name="movie-schedule">电影排片</MenuItem>
-      </Menu>
-    </Sider> -->
     <Content class="content" style="width:90%;margin:0 auto;">
       <div class='movie-details'
            id="movie-details">
@@ -71,26 +60,6 @@
 </template>
 
 <style>
-.left-bar {
-  position: fixed;
-  height: 1000px;
-}
-.avatar-img {
-  height: 60px;
-  width: 60px;
-  border-radius: 50%;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  margin-top: 30px;
-}
-.divider {
-  margin: 0 auto;
-  width: 100px;
-  background: radial-gradient(grey 24%, #515a6e 100%);
-  height: 1px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
 .content {
   /* margin-left: 200px; */
   font-size: 14px;
@@ -244,12 +213,6 @@ export default {
       }).catch(function (error) {
         alert(error)
       })
-    },
-    scroll2View (name) {
-      let view = document.querySelector('#' + name)
-      if (view) {
-        view.scrollIntoView()
-      }
     }
   }
 }

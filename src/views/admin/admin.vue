@@ -1,7 +1,7 @@
 <template>
   <Layout>
     <Sider class="sider">
-      <Menu theme="dark" style="width:auto;height:100%">
+      <Menu theme="dark" style="height:100%">
         <img class='avatar' src="../../assets/avatar.jpg">
         <MenuItem name="movieManage" to="/admin/movie">电影管理</MenuItem>
         <MenuItem name="scheduleManage" to="/admin/schedule">排片管理</MenuItem>
@@ -31,6 +31,6 @@
   margin: 40px auto;
 }
 .content {
-  margin-left: 100px;
+  margin-left: 200px;
 }
 </style>
