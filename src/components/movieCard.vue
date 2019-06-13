@@ -3,7 +3,8 @@
     <p slot="title"
        class="movieCard-movieName">
       <Icon type="ios-film-outline" />&nbsp;{{movie.name}}
-      <span v-if="movie.status==1" style="color:grey">&nbsp;已下架</span>
+      <span v-if="movie.status==1"
+            style="color:grey">&nbsp;已下架</span>
     </p>
     <p slot="extra"
        id="likeCount"
@@ -74,12 +75,21 @@ export default {
   },
   methods: {
     href () {
-      this.$router.push({
-        path: '/movie',
-        query: {
-          id: this.movie.id
-        }
-      })
+      if (sessionStorage.getItem('role') === 'user') {
+        this.$router.push({
+          path: '/movie',
+          query: {
+            id: this.movie.id
+          }
+        })
+      } else {
+        this.$router.push({
+          path: '/admin/movie/details',
+          query: {
+            id: this.movie.id
+          }
+        })
+      }
     }
   }
 }

@@ -1,28 +1,28 @@
 <template>
   <Layout>
-    <Header>
-      <Menu ref="menu"></Menu>
-    </Header>
     <Content class="layout-content">
       <Row type="flex"
            justify="space-around">
+        <Col span="14">
+        <div style="width:80%;margin:0 auto;margin-top:20px;">
+          <h1 style="text-align:left;">查找结果
+          </h1>
+          <p style="text-align:left;">查找关键字"<b>{{this.$route.query.keyword}}</b>"，共{{movieList.length}}个结果</p>
+        </div>
+        <Divider></Divider>
         <ul>
           <li v-for="item in movieList"
               v-bind:key="item.id">
             <movieCard :movie="item"></movieCard>
           </li>
         </ul>
+        </Col>
       </Row>
     </Content>
-    <Footer>
-      <myFooter></myFooter>
-    </Footer>
   </Layout>
 </template>
 
 <script>
-import Menu from '@/components/menu'
-import myFooter from '@/components/footer'
 import movieCard from '@/components/movieCard'
 export default {
   data () {
@@ -31,8 +31,6 @@ export default {
     }
   },
   components: {
-    Menu,
-    myFooter,
     movieCard
   },
 
