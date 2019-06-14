@@ -186,10 +186,10 @@ export default {
       selectedCouponId: 0,
       bankCardModal: false,
       bankCardData: {
-        account: '',
-        password: ''
+        account: Number,
+        password: Number
       },
-      orderInfo: Object
+      selectedTicketId: []
     }
   },
   computed: {
@@ -287,8 +287,12 @@ export default {
       }).then(function (res) {
         if (res.data.success) {
           let orderInfo = res.data.content
-          console.log(orderInfo)
           that.initOrder(orderInfo)
+          let tempTicketId = []
+          for (let i = 0; i < orderInfo.ticketVOList.length; i++) {
+            tempTicketId.push(orderInfo.ticketVOList[i].id)
+          }
+          that.selectedTicketId = tempTicketId
         } else {
           alert(res.data.message)
         }
@@ -310,7 +314,6 @@ export default {
     },
     initOrder (orderInfo) {
       this.step = 1
-      this.orderInfo = orderInfo
       let tempTable = [{movieName: this.movieName,
         hallName: this.hallName,
         scheduleTime: this.scheduleTime,
@@ -351,7 +354,7 @@ export default {
       } else {
         this.$axios({
           method: 'post',
-          url: 'http://localhost:8080/ticket/vip/buy?ticketId=' + that.orderInfo.ticketId + '&couponId=' + that.selectedCouponId
+          url: 'http://localhost:8080/ticket/vip/buy?ticketId=' + that.selectedTicketId + '&couponId=' + that.selectedCouponId
         }).then(function (res) {
           if (res.data.success) {
             that.step = 2
@@ -367,7 +370,7 @@ export default {
       let that = this
       this.$axios({
         method: 'post',
-        url: 'http://localhost:8080/ticket/buy?ticketId=' + that.orderInfo.ticketId + '&couponId=' + that.selectedCouponId,
+        url: 'http://localhost:8080/ticket/buy?ticketId=' + that.selectedTicketId + '&couponId=' + that.selectedCouponId,
         data: {
           cardNumber: that.bankCardData.account,
           password: that.bankCardData.password
@@ -375,14 +378,13 @@ export default {
       }).then(function (res) {
         if (res.data.success) {
           that.step = 2
+          that.bankCardModal = false
         } else {
           alert(res.data.message)
         }
       }).catch(function (error) {
         alert(error)
       })
-      this.bankCardModal = false
-      this.step = 2
     }
   }
 }
