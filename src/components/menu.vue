@@ -35,7 +35,8 @@
           <Icon type="md-person" />我的账户
         </template>
         <MenuItem name="myLikeMovie" to='/my/likeMovie'>我喜欢的</MenuItem>
-        <MenuItem name="myOrders" to='/my/tickets'>我的影票</MenuItem>
+        <MenuItem name="myTickets" to='/my/tickets'>我的影票</MenuItem>
+        <MenuItem name="myOrders" to='/my/orders'>我的订单</MenuItem>
         <MenuItem name="myVIP" to='/my/vip'>我的会员</MenuItem>
         <MenuItem name="myCoupons" to='/my/coupons'>我的优惠券</MenuItem>
         <MenuItem name="logout" v-on:click.native="logout()">注销登录</MenuItem>
