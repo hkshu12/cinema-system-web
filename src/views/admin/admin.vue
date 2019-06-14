@@ -50,6 +50,9 @@
     </Sider>
     <Content class="content">
       <router-view></router-view>
+      <Footer>
+        <myFooter></myFooter>
+      </Footer>
     </Content>
   </Layout>
 </template>
@@ -71,3 +74,11 @@
   margin-left: 200px;
 }
 </style>
+<script>
+import myFooter from '@/components/footer'
+export default {
+  components: {
+    myFooter
+  }
+}
+</script>
