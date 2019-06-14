@@ -1,26 +1,16 @@
 <template>
   <Layout>
-    <Header>
-      <Menu ref="Menu"></Menu>
-    </Header>
-    <Content>
+    <Content style="display: flex;flex-direction: column;align-items: center">
       <orderCard></orderCard>
     </Content>
-    <Footer>
-      <myFooter></myFooter>
-    </Footer>
   </Layout>
 </template>
 
 <script>
-import Menu from '@/components/menu'
-import myFooter from '@/components/footer'
 import orderCard from '@/components/orderCard'
 export default {
   components: {
-    Menu,
-    orderCard,
-    myFooter
+    orderCard
   }
 }
 </script>

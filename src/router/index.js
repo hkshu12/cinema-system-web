@@ -44,6 +44,11 @@ export default new Router({
           component: () => import('@/views/my/tickets')
         },
         {
+          path: '/my/orders',
+          name: 'myOrders',
+          component: () => import('@/views/my/orders')
+        },
+        {
           path: '/my/vip',
           name: 'myVIP',
           component: () => import('@/views/my/vip')
