@@ -186,7 +186,7 @@ export default {
       this.formData.amount = ''
     },
     validateBuyForm () {
-      var isValidate = true
+      let isValidate = true
       if (!this.formData.account) {
         isValidate = false
       }
@@ -196,7 +196,7 @@ export default {
       return isValidate
     },
     validateChargeForm () {
-      var isValidate = true
+      let isValidate = true
       if (!this.formData.account) {
         isValidate = false
       }

@@ -260,7 +260,7 @@ export default {
       let myChart = this.$echarts.init(document.getElementById('movie-likeDate-echarts'))
 
       // 指定图表的配置项和数据
-      var option = {
+      let option = {
         title: {
           text: '每日想看人数变化趋势'
         },
@@ -339,8 +339,8 @@ export default {
       })
     },
     deepCopy (source) {
-      var result = {}
-      for (var key in source) {
+      let result = {}
+      for (let key in source) {
         result[key] = typeof source[key] === 'object' ? this.deepCopy(source[key]) : source[key]
       }
       return result
