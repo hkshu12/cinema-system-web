@@ -5,7 +5,7 @@
            justify="space-around">
         <Col span="16">
         <div style="width:90%;margin:0 auto;margin-top:20px;">
-          <h1 style="text-align:left;">电影清单
+          <h1 style="text-align:left;">电影管理
             <Switch size="large"
                     @on-change="switchMovieList"
                     style="margin-left:50px;">

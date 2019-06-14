@@ -1,33 +1,45 @@
 <template>
   <Layout>
+    <Anchor show-ink class="anchor">
+      <AnchorLink href="#schedule-rate-card-container"
+                  title="今日排片率" />
+      <AnchorLink href="#box-office-card-container"
+                  title="所有电影票房" />
+      <AnchorLink href="#audience-price-card-container"
+                  title="每日客单价" />
+      <AnchorLink href="#place-rate-card-container"
+                  title="今日上座率" />
+      <AnchorLink href="#popular-movie-card-container"
+                  title="最近最热电影" />
+    </Anchor>
     <Row type="flex"
          justify="space-around">
       <Col span="18">
-      <div class="statistic-container">
+      <div class="statistic-container" id="schedule-rate-card-container">
         <Card>
           <div id="schedule-rate-container"
                style="width: 800px;height:500px;"></div>
         </Card>
       </div>
-      <div class="statistic-container">
+      <div class="statistic-container" id="box-office-card-container">
         <Card>
           <div id="box-office-container"
                style="width: 800px;height:500px;"></div>
         </Card>
       </div>
-      <div class="statistic-container">
+      <div class="statistic-container" id="audience-price-card-container">
         <Card>
           <div id="audience-price-container"
                style="width: 800px;height:500px;"></div>
         </Card>
       </div>
-      <div class="statistic-container">
+      <div class="statistic-container" id="place-rate-card-container">
         <Card>
           <div id="place-rate-container"
                style="width: 800px;height:500px;"></div>
         </Card>
       </div>
-      <div class="statistic-container">
+      <div class="statistic-container" id="popular-movie-card-container" style="margin-bottom: 300px;">
         <Card>
           <div id="popular-movie-container"
                style="width: 800px;height:500px;"></div>
@@ -39,10 +51,16 @@
 </template>
 
 <style>
+.anchor {
+  position: fixed;
+  text-align: left;
+  margin-top: 20px;
+  margin-left: 50px;
+}
 .statistic-container {
   width: 100%;
   height: 420px;
-  margin:20px 20px 140px 20px;
+  margin: 20px 20px 140px 20px;
 }
 </style>
 
