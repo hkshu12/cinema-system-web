@@ -96,6 +96,12 @@
   </Layout>
 </template>
 
+<style>
+li {
+   list-style-type: none;
+}
+</style>
+
 <script>
 import movieCard from '@/components/movieCard'
 export default {

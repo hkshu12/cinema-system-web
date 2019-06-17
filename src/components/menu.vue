@@ -29,7 +29,6 @@
              icon="ios-search"
              @on-click="search" />
       </MenuItem>
-      <!-- 个人资料之类的-->
       <Submenu name="profile">
         <template slot="title">
           <Icon type="md-person" />我的账户
