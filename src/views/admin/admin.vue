@@ -57,7 +57,7 @@
         </Submenu>
       </Menu>
     </Sider>
-    <Content class="content">
+    <Content class="admin-content">
       <router-view></router-view>
       <Footer>
         <myFooter></myFooter>
@@ -79,7 +79,7 @@
   -moz-border-radius: 50%;
   margin: 40px auto;
 }
-.content {
+.admin-content {
   margin-left: 200px;
 }
 </style>

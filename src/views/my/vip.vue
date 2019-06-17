@@ -7,9 +7,10 @@
         <Card style="height:auto;margin-top:30px;">
           <p slot="title"
              style="text-align:left;font-size:20px;">会员卡</p>
-          <a v-if="isVIP"
-             slot="extra"
-             @click="chargeModal">我要充值</a>
+          <div slot="extra">
+            <a v-if="isVIP"
+               @click="chargeModal">我要充值</a>
+          </div>
           <div class="card-content">
             <div v-if="!isVIP"
                  style="font-size:16px">
@@ -132,7 +133,7 @@ export default {
       VIPCardPrice: 0,
       VIPDescription: '',
       formData: {
-        account: '',
+        cardNumber: '',
         password: '',
         amount: ''
       },
@@ -149,11 +150,11 @@ export default {
         method: 'get',
         url: 'http://localhost:8080/vip/' + sessionStorage.getItem('id') + '/get'
       }).then(function (res) {
-        if (res.data.success === false && res.data.message === '用户卡不存在') {
-          that.isVIP = false
-        } else if (res.data.success) {
+        if (res.data.success) {
           that.isVIP = true
           that.VIPCard = res.data.content
+        } else {
+          that.isVIP = false
         }
       }).catch(function (error) {
         alert(error)
