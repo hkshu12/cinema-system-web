@@ -32,7 +32,7 @@
         <div style="text-align:left;margin-top:20px;float:right;">
           <Select class="activitySelect"
                   v-model="selectedActivityId"
-                  placeholder="选择赠送的优惠券">
+                  placeholder="选择赠送的优惠券对应的活动">
             <Option v-for="activity in activityList"
                     :value="activity.id"
                     :label="activity.name"
@@ -71,7 +71,7 @@ export default {
       columns: [
         {
           title: '用户ID',
-          key: 'id',
+          key: 'userId',
           align: 'center'
         },
         {
@@ -80,8 +80,8 @@ export default {
           align: 'center'
         },
         {
-          title: '用户名',
-          key: 'username',
+          title: '消费金额',
+          key: 'amount',
           align: 'center'
         },
         {
@@ -93,7 +93,6 @@ export default {
   },
   mounted: function () {
     this.getActivityList()
-    this.getUserList()
   },
   methods: {
     changeSelectedUserList (selection) {

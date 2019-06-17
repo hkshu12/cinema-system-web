@@ -42,11 +42,12 @@
             <Col span="22" style="display: flex;">
               <div style="display: flex;flex-direction: column;height: 100%;width: 14%;margin-left: 2px" v-for="day in schedules" v-bind:key="day.date">
                  <div>{{day.date.substring(0,10)}}</div>
-                 <Card class="day_canvas " padding=2>
-                   <Button class="default_movie_button" v-for="movie in day.scheduleItemList" :key="movie.id" type= "info" :style="movie.style" @click ="editSchedule(movie)">
+                 <Card class="day_canvas " :padding="padding">
+                   <Button class="default_movie_button" v-for="movie in day.scheduleItemList" :key="movie.id" type= "info" :style="movie.style" @click="editSchedule(movie)">
                      <span>{{movie.movieName}}</span>
                      <br>
                      <span>{{movie.startTime.substring(11,16)}}-{{movie.endTime.substring(11,16)}}</span>
+                     <span>{{formatTime(movie.startTime)}}-{{formatTime(movie.endTime)}}</span>
                    </Button>
                 </Card>
               </div>
@@ -140,6 +141,7 @@
 export default {
   data () {
     return {
+      padding: 2,
       selectedDate: new Date(),
       selectedHallId: 1,
       hallList: [],
@@ -191,7 +193,6 @@ export default {
   },
   methods: {
     getScheduleByHallId () {
-      console.log(this.selectedDate)
       let that = this
       this.$axios({
         method: 'get',
@@ -199,6 +200,7 @@ export default {
       }).then(function (res) {
         if (res.data.success) {
           that.schedules = that.computeScheduleStyle(res.data.content)
+          console.log(that.schedules[2].scheduleItemList[1].startTime.substring(11, 16))
         } else {
           alert(res.data.message)
         }
@@ -285,6 +287,9 @@ export default {
       }).catch(function (error) {
         alert(error)
       })
+    },
+    formatDate (str) {
+      return str.substring(11, 16)
     }
   }
 }

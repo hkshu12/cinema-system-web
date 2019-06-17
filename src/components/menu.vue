@@ -5,8 +5,6 @@
     <div class="menu-left">
       <MenuItem name="LOGO" to="/main"><b>CINEMA</b></MenuItem>
       <MenuItem name="movielist" to="/movielist">所有电影</MenuItem>
-      <MenuItem name="3">333</MenuItem>
-      <MenuItem name="4" to="/order">444</MenuItem>
     </div>
     <div class="menu-right"
          v-if="loginStatus != 'user'">
@@ -33,7 +31,6 @@
         <template slot="title">
           <Icon type="md-person" />我的账户
         </template>
-        <MenuItem name="myLikeMovie" to='/my/likeMovie'>我喜欢的</MenuItem>
         <MenuItem name="myTickets" to='/my/tickets'>我的影票</MenuItem>
         <MenuItem name="myOrders" to='/my/orders'>我的订单</MenuItem>
         <MenuItem name="myVIP" to='/my/vip'>我的会员</MenuItem>

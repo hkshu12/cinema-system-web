@@ -133,7 +133,6 @@ export default {
       })
     },
     refundTicket (ticketId) {
-      // TODO: 现在后端发过来的数据里没有ticketId这一项，加上应该就能用了
       this.$axios({
         method: 'post',
         url: 'http://localhost:8080/ticket/cancel?ticketId=' + ticketId

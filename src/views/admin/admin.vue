@@ -26,12 +26,22 @@
                     to="/admin/movie">电影管理</MenuItem>
           <MenuItem name="scheduleManage"
                     to="/admin/schedule">排片管理</MenuItem>
-          <MenuItem name="promotionManage"
-                    to="/admin/promotion">活动管理</MenuItem>
           <MenuItem name="cinemaManage"
                     to="/admin/cinema">影厅管理</MenuItem>
+          <MenuItem name="refundManage"
+                    to="/admin/refund">退票策略管理</MenuItem>
+        </Submenu>
+        <Submenu name="promotion">
+          <template slot="title">
+            <Icon type="ios-card" />
+            促销管理
+          </template>
+          <MenuItem name="promotionManage"
+                    to="/admin/promotion">活动管理</MenuItem>
           <MenuItem name="couponManage"
                     to="/admin/coupon">优惠券管理</MenuItem>
+                    <MenuItem name="vipManage"
+                    to="/admin/vip">会员卡管理</MenuItem>
         </Submenu>
         <Submenu name="stats">
           <template slot="title">
