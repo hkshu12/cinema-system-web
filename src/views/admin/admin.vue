@@ -7,8 +7,17 @@
             active-name="movieManage"
             :open-names="['cinema']">
         <img class='avatar'
-             src="../../assets/avatar.jpg">
-        <Submenu name="cinema">
+             src="../../assets/avatar.jpg" />
+        <div>
+          <p>您目前的身份为</p>
+          <p>{{role}}</p>
+        </div>
+        <div>
+        <Button type="text"
+                @click="logout">注销</Button>
+        </div>
+        <Submenu name="cinema"
+                 style="margin-top:20px;">
           <template slot="title">
             <Icon type="ios-paper" />
             影院业务
@@ -41,7 +50,7 @@
         <Submenu name="staff">
           <template slot="title">
             <Icon type="ios-people" />
-            人事管理
+            用户管理
           </template>
           <MenuItem name="staffManage"
                     to="/admin/staff">员工管理</MenuItem>
@@ -71,3 +80,33 @@
   margin-left: 200px;
 }
 </style>
+
+<script>
+export default {
+  data () {
+    return {
+      role: ''
+    }
+  },
+  mounted: function () {
+    let role = sessionStorage.getItem('role')
+    if (role === 'admin') {
+      this.role = '管理员'
+    } else if (role === 'manager') {
+      this.role = '经理'
+    } else if (role === null) {
+      this.$Message.error('请先进行登录')
+      this.$router.push('/login')
+    }
+  },
+  methods: {
+    logout () {
+      sessionStorage.removeItem('id')
+      sessionStorage.removeItem('role')
+      sessionStorage.removeItem('loginStatus')
+      sessionStorage.removeItem('username')
+      this.$router.push('/login')
+    }
+  }
+}
+</script>

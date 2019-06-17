@@ -46,9 +46,6 @@
         </Col>
       </Row>
     </Content>
-    <Footer>
-      <myFooter></myFooter>
-    </Footer>
   </Layout>
 </template>
 

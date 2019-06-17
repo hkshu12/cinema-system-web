@@ -27,6 +27,27 @@
               </FormItem>
             </Form>
           </div>
+          <div id='calendar'>
+            <!-- <FullCalendar class='demo-app-calendar'
+                          ref="fullCalendar"
+                          defaultView="timeGridWeek"
+                          :header="{
+                            left: 'prev,next today',
+                            center: 'title',
+                            right: 'timeGridWeek,timeGridDay'
+                          }"
+                          :buttonText="{
+                            today:    '今天',
+                            week:     '周视图',
+                            day:      '日视图'
+                          }"
+                          :plugins="calendarPlugins"
+                          :weekends="calendarWeekends"
+                          :events="calendarEvents"
+                          @dateClick="handleDateClick"
+                          locale="zh-CN"
+                          allDaySlot="false" /> -->
+          </div>
         </Card>
       </div>
       </Col>
@@ -44,9 +65,10 @@
 export default {
   data () {
     return {
-      selectedDate: '',
+      selectedDate: new Date(),
       selectedHallId: '',
-      hallList: []
+      hallList: [],
+      schedules: []
     }
   },
   mounted: function () {
@@ -59,6 +81,27 @@ export default {
         that.hallList = res.data.content
       }
     })
+  },
+  methods: {
+    getScheduleByHallId () {
+      let that = this
+      this.$axios({
+        mothod: 'get',
+        url: '/schedule/search?hallId=' + that.selectedHallId + '&startDate=' + that.selectedDate.replace(/-/g, '/')
+      }).then(function (res) {
+        if (res.data.success) {
+          that.schedules = res.data.content
+          that.renderScheduleTable(that.schedules)
+        } else {
+          alert(res.data.message)
+        }
+      }).catch(function (error) {
+        alert(error)
+      })
+    },
+    renderScheduleTable (schedules) {
+
+    }
   }
 }
 </script>
