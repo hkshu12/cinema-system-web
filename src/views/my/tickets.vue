@@ -90,7 +90,7 @@ export default {
                       okText: '确认退票',
                       cancelText: '取消',
                       onOk: () => {
-                        this.refundTicket(params.row.id)
+                        this.refundTicket(params.row.tickid)
                       }
                     })
                   }
@@ -100,10 +100,10 @@ export default {
               return h('Button', {
                 on: {
                   click: () => {
-                    // TODO:未完成则前往付款, cyt写一下，跳到付款流程第二步
+                    this.$router.push('/my/orders')
                   }
                 }
-              }, '前往付款')
+              }, '前往订单')
             } else if (params.row.state === '已失效') {
               return h('span', ' ')
             }

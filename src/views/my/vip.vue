@@ -29,7 +29,7 @@
                 </div>
                 <div class="line">
                   <div><b>充值优惠：</b></div>
-                  <div>满{{VIPCard.quota}}送{{VIPCard.gift}}</div>
+                  <div>{{VIPDescription}}</div>
                 </div>
                 <Divider></Divider>
                 <div class="line">
