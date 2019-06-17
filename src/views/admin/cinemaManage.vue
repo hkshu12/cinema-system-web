@@ -7,7 +7,7 @@
           <div>
             <Card style="min-height:800px;margin-top: 10px;display: flex;flex-direction: column;align-items: center;">
               <div style="margin: 20px;display: flex;">
-                <b>常规设置</b>
+                <b><font size="4">常规设置</font></b>
               </div>
               <div style="margin-left: 20px;display: flex;">
                 <div>用户可见排片日期：{{days}}天</div>
@@ -15,7 +15,7 @@
               </div>
               <Divider style="width: 800px"></Divider>
               <div style="margin: 20px;display: flex;">
-                <b>影厅设置</b>
+                <b><font size="4">影厅设置</font></b>
               </div>
               <div style="margin-left: 20px;display: flex;">
                 <Button type="primary" @click="addHall">新增影厅</Button>
@@ -227,6 +227,7 @@ export default {
         } else {
           alert(res.data.message)
         }
+        that.editedDays = ''
       }).catch(function (error) {
         alert(error)
       })
@@ -273,6 +274,11 @@ export default {
           that.getHallInfo()
         } else {
           alert(res.data.message)
+        }
+        that.toAddHall = {
+          name: '',
+          row: '',
+          column: ''
         }
       }).catch(function (error) {
         alert(error)
