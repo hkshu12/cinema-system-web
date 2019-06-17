@@ -77,7 +77,7 @@ export default {
           key: 'refund',
           align: 'center',
           render: (h, params) => {
-            if (params.row.state === '已完成') {
+            if (params.row.state === '已完成' && new Date(params.row.startTime) > new Date()) {
               return h('Button', {
                 on: {
                   click: () => {

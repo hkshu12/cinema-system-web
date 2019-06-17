@@ -13,8 +13,8 @@
           <p>{{role}}</p>
         </div>
         <div>
-        <Button type="text"
-                @click="logout">注销</Button>
+          <Button type="text"
+                  @click="logout">注销</Button>
         </div>
         <Submenu name="cinema"
                  style="margin-top:20px;">
@@ -30,6 +30,8 @@
                     to="/admin/promotion">活动管理</MenuItem>
           <MenuItem name="cinemaManage"
                     to="/admin/cinema">影厅管理</MenuItem>
+          <MenuItem name="couponManage"
+                    to="/admin/coupon">优惠券管理</MenuItem>
         </Submenu>
         <Submenu name="stats">
           <template slot="title">
@@ -57,7 +59,7 @@
         </Submenu>
       </Menu>
     </Sider>
-    <Content class="content">
+    <Content class="admin-content">
       <router-view></router-view>
       <Footer>
         <myFooter></myFooter>
@@ -79,13 +81,17 @@
   -moz-border-radius: 50%;
   margin: 40px auto;
 }
-.content {
+.admin-content {
   margin-left: 200px;
 }
 </style>
 
 <script>
+import myFooter from '@/components/footer'
 export default {
+  components: {
+    myFooter
+  },
   data () {
     return {
       role: ''
