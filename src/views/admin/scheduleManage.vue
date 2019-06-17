@@ -46,8 +46,7 @@
                    <Button class="default_movie_button" v-for="movie in day.scheduleItemList" :key="movie.id" type= "info" :style="movie.style" @click="editSchedule(movie)">
                      <span>{{movie.movieName}}</span>
                      <br>
-                     <span>{{movie.startTime.substring(11,16)}}-{{movie.endTime.substring(11,16)}}</span>
-                     <span>{{formatTime(movie.startTime)}}-{{formatTime(movie.endTime)}}</span>
+                     <span>{{movie.startTimeStr}}-{{movie.endTimeStr}}</span>
                    </Button>
                 </Card>
               </div>
@@ -200,7 +199,6 @@ export default {
       }).then(function (res) {
         if (res.data.success) {
           that.schedules = that.computeScheduleStyle(res.data.content)
-          console.log(that.schedules[2].scheduleItemList[1].startTime.substring(11, 16))
         } else {
           alert(res.data.message)
         }
@@ -219,6 +217,8 @@ export default {
           let marginTop = Math.round((start.getHours() + start.getMinutes() / 60) / 24 * 720 - heightCounter)
           heightCounter = heightCounter + height
           tempList[j].scheduleItemList[i].style = 'position: relative;top: ' + marginTop + 'px;height: ' + height + 'px'
+          tempList[j].scheduleItemList[i].startTimeStr = tempList[j].scheduleItemList[i].startTime.substring(11, 16)
+          tempList[j].scheduleItemList[i].endTimeStr = tempList[j].scheduleItemList[i].endTime.substring(11, 16)
         }
       }
       return tempList
@@ -287,9 +287,6 @@ export default {
       }).catch(function (error) {
         alert(error)
       })
-    },
-    formatDate (str) {
-      return str.substring(11, 16)
     }
   }
 }
