@@ -115,6 +115,16 @@ export default new Router({
           path: '/admin/coupon',
           name: 'couponManage',
           component: () => import('@/views/admin/couponManage')
+        },
+        {
+          path: '/admin/refund',
+          name: 'couponManage',
+          component: () => import('@/views/admin/refundManage')
+        },
+        {
+          path: '/admin/vip',
+          name: 'vipManage',
+          component: () => import('@/views/admin/vipManage')
         }
       ]
     }

@@ -52,19 +52,23 @@
         </Col>
       </Row>
     </Content>
+    <Footer>
+      <myFooter></myFooter>
+    </Footer>
   </Layout>
 </template>
+
 <style>
 .layout-content {
   margin-top: 16px;
 }
 .layout-content-row-col {
   position: relative;
-  height: 640px;
+  height: 720px;
 }
 .layout-content-row-col-card {
   position: relative;
-  margin-top: 80px;
+  margin-top: 120px;
 }
 .layout-content-row-col-card-form {
   margin: 0 auto;
@@ -73,7 +77,6 @@
 </style>
 
 <script>
-import Menu from '@/components/menu'
 import myFooter from '@/components/footer'
 export default {
   data () {
@@ -142,7 +145,7 @@ export default {
               password: that.formData.password,
               secondPassword: that.formData.repassword
             }
-          }).then(function (res) {
+          }).then((res) => {
             if (res.data.success) {
               this.$Message.success('注册成功')
             } else {
@@ -159,7 +162,6 @@ export default {
   },
 
   components: {
-    Menu,
     myFooter
   }
 }

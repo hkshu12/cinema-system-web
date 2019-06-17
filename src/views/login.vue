@@ -3,10 +3,6 @@
     <Content class="layout-content">
       <Row type="flex"
            justify="space-around">
-        <Col class="layout-content-row-col1"
-             span="14">
-        <p>一张大图</p>
-        </Col>
         <Col class="layout-content-row-col2"
              span="8">
         <Card class="layout-content-row-col2-card"
@@ -46,6 +42,9 @@
         </Col>
       </Row>
     </Content>
+    <Footer>
+      <myFooter></myFooter>
+    </Footer>
   </Layout>
 </template>
 
@@ -70,7 +69,11 @@
 </style>
 
 <script>
+import myFooter from '@/components/footer'
 export default {
+  components: {
+    myFooter
+  },
   data () {
     return {
       formData: {
@@ -79,7 +82,6 @@ export default {
       }
     }
   },
-
   methods: {
     validateLoginForm () {
       let isValidate = true
