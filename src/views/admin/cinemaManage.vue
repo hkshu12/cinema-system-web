@@ -4,62 +4,79 @@
       <Row type="flex"
            justify="space-around">
         <Col span="18">
-          <div>
-            <Card style="min-height:800px;margin-top: 10px;display: flex;flex-direction: column;align-items: center;">
-              <div style="margin: 20px;display: flex;">
-                <b><font size="4">常规设置</font></b>
-              </div>
-              <div style="margin-left: 20px;display: flex;">
-                <div>用户可见排片日期：{{days}}天</div>
-                <Button style="margin-left: auto" type="primary" @click="editDays">修改</Button>
-              </div>
-              <Divider style="width: 800px"></Divider>
-              <div style="margin: 20px;display: flex;">
-                <b><font size="4">影厅设置</font></b>
-              </div>
-              <div style="margin-left: 20px;display: flex;">
-                <Button type="primary" @click="addHall">新增影厅</Button>
-              </div>
-              <div style="margin: 15px">
-                <Table border :columns="hallTable" :data="hallData"></Table>
-              </div>
-            </Card>
+        <div>
+          <div style="width:90%;margin:0 auto;margin-top:20px;">
+            <h1 style="text-align:left;">常规设置
+            </h1>
           </div>
+          <Divider></Divider>
+          <Card style="margin-top: 10px;text-align:left;">
+            <div style="margin-left: 20px;display: flex;">
+              <div>用户可见排片日期：{{days}}天</div>
+              <Button style="margin-left: auto"
+                      type="primary"
+                      @click="editDays">修改</Button>
+            </div>
+          </Card>
+          <div style="width:90%;margin:0 auto;margin-top:20px;">
+            <h1 style="text-align:left;">影厅管理
+            </h1>
+          </div>
+          <Divider></Divider>
+          <Card>
+            <div style="margin-left: 20px;display: flex;">
+              <Button type="primary"
+                      @click="addHall">新增影厅</Button>
+            </div>
+            <div style="margin: 15px">
+              <Table border
+                     :columns="hallTable"
+                     :data="hallData"></Table>
+            </div>
+          </Card>
+        </div>
         </Col>
       </Row>
       <Modal v-model="daysModal"
              title="修改用户可见时间"
              @on-ok="handleEditDays">
         <div style="margin-left:50px;">
-          <Input v-model="editedDays" placeholder="输入新时间" type="number" style="width: 60%"/>
+          <Input v-model="editedDays"
+                 placeholder="输入新时间"
+                 type="number"
+                 style="width: 60%" />
         </div>
       </Modal>
-      <Modal v-model="editHallModal" title="修改影厅信息"  @on-ok="handleEditHall">
-      <div style="margin-left:20px;">
-        <Form :model="toEditHall"
-              :label-width="80"
-              label-position="left">
-          <br>
-          <FormItem label="影厅名称">
-            <Input v-model="toEditHall.name"
-                   placeholder="请输入影厅名称" />
-          </FormItem>
-          <br>
-          <FormItem label="排数">
-            <Input v-model="toEditHall.row"
-                   type="number"
-                   placeholder="请输入排数" />
-          </FormItem>
-          <br>
-          <FormItem label="列数">
-            <Input v-model="toEditHall.column"
-                   type="number"
-                   placeholder="请输入列数" />
-          </FormItem>
-        </Form>
-      </div>
-    </Modal>
-      <Modal v-model="addHallModal" title="新增影厅信息"  @on-ok="handleAddHall">
+      <Modal v-model="editHallModal"
+             title="修改影厅信息"
+             @on-ok="handleEditHall">
+        <div style="margin-left:20px;">
+          <Form :model="toEditHall"
+                :label-width="80"
+                label-position="left">
+            <br>
+            <FormItem label="影厅名称">
+              <Input v-model="toEditHall.name"
+                     placeholder="请输入影厅名称" />
+            </FormItem>
+            <br>
+            <FormItem label="排数">
+              <Input v-model="toEditHall.row"
+                     type="number"
+                     placeholder="请输入排数" />
+            </FormItem>
+            <br>
+            <FormItem label="列数">
+              <Input v-model="toEditHall.column"
+                     type="number"
+                     placeholder="请输入列数" />
+            </FormItem>
+          </Form>
+        </div>
+      </Modal>
+      <Modal v-model="addHallModal"
+             title="新增影厅信息"
+             @on-ok="handleAddHall">
         <div style="margin-left:20px;">
           <Form :model="toAddHall"
                 :label-width="80"
@@ -289,5 +306,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

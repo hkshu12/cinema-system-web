@@ -3,7 +3,7 @@
     <Content>
       <Row type="flex"
            justify="space-around">
-        <Col span="16">
+        <Col span="18">
         <div style="width:90%;margin:0 auto;margin-top:20px;">
           <h1 style="text-align:left;">优惠券管理
           </h1>
@@ -22,7 +22,7 @@
             </p>
           </div>
         </Card>
-        <Card style="margin-top:20px">
+        <Card style="margin-top:20px;">
           <Table :columns="columns"
                  :data="userList"
                  @on-selection-change="changeSelectedUserList">
@@ -113,7 +113,7 @@ export default {
         url: 'http://localhost:8080/vip/giveCoupon',
         data: {
           userId: that.selectedUserList,
-          couponId: that.selectedActivityId
+          activityId: that.selectedActivityId
         }
       })
     },

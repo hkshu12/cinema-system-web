@@ -3,7 +3,7 @@
     <Content class="layout-content" style="min-height: 600px">
       <Row type="flex"
            justify="space-around">
-        <Col span="16">
+        <Col span="18">
           <div style="width:90%;margin:0 auto;margin-top:20px;">
             <h1 style="text-align:left;">活动管理
               <Switch size="large"

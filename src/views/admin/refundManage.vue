@@ -12,14 +12,14 @@
         </div>
         <Divider></Divider>
         <div>
-          <Card style="min-height:800px;margin-top: 10px;display: flex;flex-direction: column;align-items: center;">
+          <Card style="margin-top: 10px;">
             <div style="margin: 15px">
               <Table border
                      :columns="strategyTable"
                      :data="strategyData"
                      style="width:800px;"></Table>
             </div>
-            <div style="text-align:left;margin-top:20px;float:right;">
+            <div style="text-align:left;margin-top:40px;float:right;">
               <Select class="strategySelect"
                       v-model="selectedStrategyId"
                       placeholder="选择生效的退票策略">
@@ -118,7 +118,7 @@ export default {
           key: 'inuse',
           align: 'center',
           render: (h, params) => {
-            if (params.row.inuse) {
+            if (params.row.inUse === 1) {
               return h('span', '√')
             } else {
               return h('span', '×')
