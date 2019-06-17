@@ -213,6 +213,7 @@ export default {
     this.initMovieDetail(this.$route.query.id)
   },
   methods: {
+    // 获取座位信息
     initSeats (scheduleId) {
       this.scheduleId = scheduleId
       let that = this
@@ -233,6 +234,7 @@ export default {
         alert(error)
       })
     },
+    // 获取电影信息
     initMovieDetail (movieId) {
       let that = this
       this.$axios({
@@ -252,6 +254,7 @@ export default {
         alert(error)
       })
     },
+    // 处理选择座位和取消
     addSeat (row, col) {
       let pickedArray = []
       let tempArray = this.seatsArray
@@ -273,6 +276,7 @@ export default {
       }
       this.pickedSeats = pickedArray.slice()
     },
+    // 锁定座位获取orderInfo；并获取会员卡信息
     lockSeats () {
       let that = this
       // 锁定座位
@@ -312,6 +316,7 @@ export default {
         alert(error)
       })
     },
+    // 根据orderInfo处理数据
     initOrder (orderInfo) {
       this.step = 1
       let tempTable = [{movieName: this.movieName,
@@ -336,6 +341,7 @@ export default {
       }
       this.couponList = tempCoupons
     },
+    // 选择优惠券
     couponSelect () {
       console.log(this.selectedCouponIndex)
       if (typeof (this.selectedCouponIndex) !== 'function') {
@@ -347,6 +353,7 @@ export default {
         }
       }
     },
+    // 确认，当用会员卡购买时自动发送请求
     handleConfirm () {
       let that = this
       if (this.selectedPay === '银行卡') {
@@ -366,6 +373,7 @@ export default {
         })
       }
     },
+    // 用银行卡购买
     handleBankCard () {
       let that = this
       this.$axios({
@@ -378,7 +386,6 @@ export default {
       }).then(function (res) {
         if (res.data.success) {
           that.step = 2
-          that.bankCardModal = false
         } else {
           alert(res.data.message)
         }

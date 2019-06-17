@@ -59,6 +59,9 @@
     </Sider>
     <Content class="content">
       <router-view></router-view>
+      <Footer>
+        <myFooter></myFooter>
+      </Footer>
     </Content>
   </Layout>
 </template>
