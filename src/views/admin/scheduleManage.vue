@@ -43,7 +43,7 @@
               <div style="display: flex;flex-direction: column;height: 100%;width: 14%;margin-left: 2px" v-for="day in schedules" v-bind:key="day.date">
                  <div>{{day.date.substring(0,10)}}</div>
                  <Card class="day_canvas " padding=2>
-                   <Button class="default_movie_button" v-for="movie in day.scheduleItemList" :key="movie.id" type= "info" :style="movie.style" @click="editSchedule(movie)">
+                   <Button class="default_movie_button" v-for="movie in day.scheduleItemList" :key="movie.id" type= "info" :style="movie.style" @click ="editSchedule(movie)">
                      <span>{{movie.movieName}}</span>
                      <br>
                      <span>{{movie.startTime.substring(11,16)}}-{{movie.endTime.substring(11,16)}}</span>
@@ -80,7 +80,7 @@
           </FormItem>
           <FormItem label="票价">
             <Input v-model="toAddSchedule.fare"
-                   type="Number"
+                   type="number"
                    placeholder="请输入票价" />
           </FormItem>
         </Form>
@@ -110,7 +110,7 @@
           </FormItem>
           <FormItem label="票价">
             <Input v-model="toEditSchedule.fare"
-                   type="Number"
+                   type="number"
                    placeholder="请输入票价" />
           </FormItem>
         </Form>
