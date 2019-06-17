@@ -110,6 +110,11 @@ export default new Router({
           path: '/admin/movie/details',
           name: 'movieDetails',
           component: () => import('@/views/admin/movieDetails')
+        },
+        {
+          path: '/admin/coupon',
+          name: 'couponManage',
+          component: () => import('@/views/admin/couponManage')
         }
       ]
     }

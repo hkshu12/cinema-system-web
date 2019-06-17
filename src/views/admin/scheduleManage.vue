@@ -18,7 +18,8 @@
                 <Select class="hallSelect"
                         v-model="selectedHallId">
                   <Option v-for="hall in hallList"
-                          :value="hall.name"
+                          :label="hall.name"
+                          :value="hall.id"
                           :key="hall.id" />
                 </Select>
               </FormItem>
