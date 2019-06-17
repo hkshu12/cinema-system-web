@@ -218,7 +218,7 @@ export default {
         method: 'post',
         url: 'http://localhost:8080/vip/add?userId=' + sessionStorage.getItem('id'),
         data: {
-          account: that.formData.account,
+          cardNumber: that.formData.account,
           password: that.formData.password
         }
       }).then((res) => {
@@ -241,7 +241,7 @@ export default {
         method: 'post',
         url: 'http://localhost:8080/vip/charge',
         data: {
-          account: that.formData.account,
+          cardNumber: that.formData.account,
           password: that.formData.password,
           vipId: that.VIPCard.id,
           amount: that.formData.amount

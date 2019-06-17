@@ -290,6 +290,7 @@ export default {
         }
       }).then(function (res) {
         if (res.data.success) {
+          console.log(res.data.content)
           let orderInfo = res.data.content
           that.initOrder(orderInfo)
           let tempTicketId = []

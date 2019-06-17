@@ -27,7 +27,7 @@
             <br>
             <FormItem label="用户名">
               <Input v-model="toAddUser.username"
-                     placeholder="请输入影厅名称" />
+                     placeholder="请输入用户名" />
             </FormItem>
             <br>
             <FormItem label="密码">
@@ -64,7 +64,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       userTable: [
         {
