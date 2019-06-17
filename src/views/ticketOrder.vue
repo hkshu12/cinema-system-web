@@ -169,7 +169,7 @@ export default {
       ticketPrice: 0,
       pickedSeats: [],
       isVip: false,
-      vipInfo: Object,
+      vipInfo: Object, //
       orderTable: [
         {title: '电影', key: 'movieName'},
         {title: '影厅', key: 'hallName'},
@@ -178,6 +178,7 @@ export default {
         {title: '单价', key: 'ticketPrice'},
         {title: '总价', key: 'totalPrice'}
       ],
+      totalPrice: 0,
       tableInfo: [],
       couponList: [],
       discountAmount: 0,
@@ -211,8 +212,25 @@ export default {
   mounted () {
     this.initSeats(this.$route.query.scheduleId)
     this.initMovieDetail(this.$route.query.id)
+    this.initVIP()
+    this.initCoupon()
   },
   methods: {
+    // 获取会员信息
+    initVIP () {
+      let that = this
+      this.$axios({
+        method: 'get',
+        url: 'http://localhost:8080/vip/' + sessionStorage.getItem('id') + '/get'
+      }).then(function (res) {
+        if (res.data.success) {
+          that.isVip = true
+          that.vipInfo = res.data.content
+        }
+      }).catch(function (error) {
+        alert(error)
+      })
+    },
     // 获取座位信息
     initSeats (scheduleId) {
       this.scheduleId = scheduleId
@@ -291,62 +309,62 @@ export default {
       }).then(function (res) {
         if (res.data.success) {
           console.log(res.data.content)
-          let orderInfo = res.data.content
-          that.initOrder(orderInfo)
-          let tempTicketId = []
-          for (let i = 0; i < orderInfo.ticketVOList.length; i++) {
-            tempTicketId.push(orderInfo.ticketVOList[i].id)
-          }
-          that.selectedTicketId = tempTicketId
+          that.initOrder(res.data.content, false)
         } else {
           alert(res.data.message)
         }
       }).catch(function (error) {
         alert(error)
       })
-      // 获取会员信息
+    },
+    initCoupon () {
+      let that = this
       this.$axios({
         method: 'get',
-        url: 'http://localhost:8080/vip/' + sessionStorage.getItem('id') + '/get'
+        url: 'http://localhost:8080/coupon/' + sessionStorage.getItem('id') + '/get'
       }).then(function (res) {
         if (res.data.success) {
-          that.isVip = true
-          that.vipInfo = res.data.content
+          let tempCoupons = []
+          tempCoupons.push({
+            index: 0,
+            name: '不使用奖券',
+            targetAmount: 0,
+            discountAmount: 0
+          })
+          for (let i = 0; i < res.data.content.length; i++) {
+            let temp = res.data.content[i]
+            temp.index = i + 1
+            tempCoupons.push(temp)
+          }
+          that.couponList = tempCoupons
         }
       }).catch(function (error) {
         alert(error)
       })
     },
-    // 根据orderInfo处理数据
-    initOrder (orderInfo) {
-      this.step = 1
-      let tempTable = [{movieName: this.movieName,
-        hallName: this.hallName,
-        scheduleTime: this.scheduleTime,
-        seats: this.pickedSeatsToStr,
-        ticketPrice: this.ticketPrice + '元',
-        totalPrice: this.ticketPrice * this.pickedSeats.length + '元'
-      }]
-      this.tableInfo = tempTable
-      let tempCoupons = []
-      tempCoupons.push({
-        index: 0,
-        name: '不使用奖券',
-        targetAmount: 0,
-        discountAmount: 0
-      })
-      for (let i = 0; i < orderInfo.coupons.length; i++) {
-        let temp = orderInfo.coupons[i]
-        temp.index = i + 1
-        tempCoupons.push(temp)
+    // 根据orderInfo处理
+    initOrder (orderInfo, isUnfinished) {
+      if (isUnfinished) {
+        // to be finished
+      } else {
+        this.step = 1
+        let tempTable = [{movieName: this.movieName,
+          hallName: this.hallName,
+          scheduleTime: this.scheduleTime,
+          seats: this.pickedSeatsToStr,
+          ticketPrice: this.ticketPrice + '元',
+          totalPrice: orderInfo.initial_amount
+        }]
+        this.totalPrice = orderInfo.initial_amount
+        this.tableInfo = tempTable
+        this.getTicketIdByOrder(orderInfo.orderID)
       }
-      this.couponList = tempCoupons
     },
     // 选择优惠券
     couponSelect () {
       console.log(this.selectedCouponIndex)
       if (typeof (this.selectedCouponIndex) !== 'function') {
-        if (this.couponList[this.selectedCouponIndex].targetAmount <= this.ticketPrice * this.pickedSeats.length) {
+        if (this.couponList[this.selectedCouponIndex].targetAmount <= this.totalPrice) {
           this.discountAmount = this.couponList[this.selectedCouponIndex].discountAmount
         }
         if (this.selectedCouponIndex !== 0) {
@@ -387,6 +405,25 @@ export default {
       }).then(function (res) {
         if (res.data.success) {
           that.step = 2
+        } else {
+          alert(res.data.message)
+        }
+      }).catch(function (error) {
+        alert(error)
+      })
+    },
+    getTicketIdByOrder (orderId) {
+      let that = this
+      this.$axios({
+        method: 'get',
+        url: 'http://localhost:8080/ticket/getByOrderID/' + orderId
+      }).then(function (res) {
+        if (res.data.success) {
+          let tempList = []
+          for (let i = 0; i < res.data.content.length; i++) {
+            tempList.push(res.data.content[i].id)
+          }
+          that.selectedTicketId = tempList
         } else {
           alert(res.data.message)
         }
