@@ -62,7 +62,7 @@
                         @click="editSchedule(movie)">
                   <span>{{movie.movieName}}</span>
                   <br>
-                  <span>{{movie.startTime.substring(11,16)}}-{{movie.endTime.substring(11,16)}}</span>
+                  <span>{{movie.startTimeStr}}-{{movie.endTimeStr}}</span>
                 </Button>
               </Card>
             </div>
@@ -164,6 +164,9 @@
             <Input v-model="toEditSchedule.fare"
                    type="number"
                    placeholder="请输入票价" />
+          </FormItem>
+          <FormItem label="删除">
+            <Button type="error" @click="handleDeleteSchedule(toEditSchedule.id)">删除排片</Button>
           </FormItem>
         </Form>
       </div>
@@ -269,6 +272,8 @@ export default {
           let marginTop = Math.round((start.getHours() + start.getMinutes() / 60) / 24 * 720 - heightCounter)
           heightCounter = heightCounter + height
           tempList[j].scheduleItemList[i].style = 'position: relative;top: ' + marginTop + 'px;height: ' + height + 'px'
+          tempList[j].scheduleItemList[i].startTimeStr = tempList[j].scheduleItemList[i].startTime.substring(11, 16)
+          tempList[j].scheduleItemList[i].endTimeStr = tempList[j].scheduleItemList[i].endTime.substring(11, 16)
         }
       }
       return tempList
@@ -331,6 +336,25 @@ export default {
         if (res.data.success) {
           this.$Message.success('添加成功')
           that.getScheduleByHallId()
+        } else {
+          alert(res.data.message)
+        }
+      }).catch(function (error) {
+        alert(error)
+      })
+    },
+    handleDeleteSchedule (id) {
+      let that = this
+      this.$axios({
+        method: 'post',
+        url: 'http://localhost:8080/schedule/delete/batch',
+        data: {
+          scheduleIdList: [id]
+        }
+      }).then((res) => {
+        if (res.data.success) {
+          this.$Message.success('删除成功')
+          that.editScheduleModal = false
         } else {
           alert(res.data.message)
         }
