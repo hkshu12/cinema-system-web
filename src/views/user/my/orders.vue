@@ -7,10 +7,6 @@
 </template>
 
 <script>
-import orderCard from '@/components/orderCard'
 export default {
-  components: {
-    orderCard
-  }
 }
 </script>
