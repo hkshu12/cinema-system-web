@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import index from './views/index.vue'
+import index from './views/user/index.vue'
 import myFooter from '@/components/footer'
 export default {
   name: 'App',
