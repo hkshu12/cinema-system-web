@@ -15,7 +15,7 @@
                   style="margin-top:10px;margin-left:40px;text-align:left;"
                   :label-width="100"
                   label-position="left">
-              <FormItem label="会员卡价格">
+              <FormItem label="会员卡价格:">
                 <Input v-model="vipCardPrice"
                        type="number"
                        width="30%" />
@@ -35,7 +35,7 @@
         </div>
         <Divider></Divider>
         <div>
-          <Card style="min-height:800px;margin-top: 10px;display: flex;flex-direction: column;align-items: center;">
+          <Card style="margin-top: 10px;align-items: center;">
             <div style="margin: 15px">
               <Table border
                      :columns="strategyTable"

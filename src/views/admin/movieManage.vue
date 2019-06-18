@@ -3,7 +3,7 @@
     <Content class="layout-content">
       <Row type="flex"
            justify="space-around">
-        <Col span="16">
+        <Col span="18">
         <div style="width:90%;margin:0 auto;margin-top:20px;">
           <h1 style="text-align:left;">电影管理
             <Switch size="large"

@@ -4,22 +4,27 @@
       <Row type="flex"
            justify="space-around">
         <Col span="18">
-          <div>
-            <Card style="min-height:800px;margin-top: 10px;display: flex;flex-direction: column;align-items: center;">
-              <div style="margin: 20px;display: flex;">
-                <b><font size="4">员工管理</font></b>
-              </div>
-              <div style="margin-left: 20px;display: flex;">
-                <Button type="primary" @click="addUser">新增员工</Button>
-              </div>
-              <div style="margin: 15px">
-                <Table border :columns="userTable" :data="userData"></Table>
-              </div>
-            </Card>
-          </div>
+        <div style="width:90%;margin:0 auto;margin-top:20px;">
+          <h1 style="text-align:left;">员工管理
+            <Button type="primary"
+                    @click="addUser">新增员工</Button>
+          </h1>
+        </div>
+        <Divider></Divider>
+        <div>
+          <Card style="margin-top: 10px;">
+            <div style="margin: 15px">
+              <Table border
+                     :columns="userTable"
+                     :data="userData"></Table>
+            </div>
+          </Card>
+        </div>
         </Col>
       </Row>
-      <Modal v-model="addUserModal" title="新增员工信息"  @on-ok="handleAddUser">
+      <Modal v-model="addUserModal"
+             title="新增员工信息"
+             @on-ok="handleAddUser">
         <div style="margin-left:20px;">
           <Form :model="toAddUser"
                 :label-width="80"
@@ -37,22 +42,32 @@
             </FormItem>
             <br>
             <FormItem label="员工等级">
-              <Select v-model="toAddUser.userlevel" style="width:200px">
-                <Option v-for="item in levelList" :value="item.value" :key="item.value" :label="item.levelStr">{{ item.levelStr }}</Option>
+              <Select v-model="toAddUser.userlevel"
+                      style="width:200px">
+                <Option v-for="item in levelList"
+                        :value="item.value"
+                        :key="item.value"
+                        :label="item.levelStr">{{ item.levelStr }}</Option>
               </Select>
             </FormItem>
           </Form>
         </div>
       </Modal>
-      <Modal v-model="editUserModal" title="修改员工信息"  @on-ok="handleEditUser">
+      <Modal v-model="editUserModal"
+             title="修改员工信息"
+             @on-ok="handleEditUser">
         <div style="margin-left:20px;">
           <Form :model="toEditUser"
                 :label-width="80"
                 label-position="left">
             <br>
             <FormItem label="员工等级">
-              <Select v-model="toEditUser.userlevel" style="width:200px">
-                <Option v-for="item in levelList" :value="item.value" :key="item.value" :label="item.levelStr">{{ item.levelStr }}</Option>
+              <Select v-model="toEditUser.userlevel"
+                      style="width:200px">
+                <Option v-for="item in levelList"
+                        :value="item.value"
+                        :key="item.value"
+                        :label="item.levelStr">{{ item.levelStr }}</Option>
               </Select>
             </FormItem>
           </Form>
@@ -247,5 +262,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

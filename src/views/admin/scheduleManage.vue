@@ -3,9 +3,13 @@
     <Row type="flex"
          justify="space-around">
       <Col span="18">
+      <div style="width:90%;margin:0 auto;margin-top:20px;">
+        <h1 style="text-align:left;">排片管理
+        </h1>
+      </div>
+      <Divider></Divider>
       <div>
         <Card>
-          <p slot="title">查看排片情况</p>
           <div style="display: flex;justify-content: center">
             <Form inline>
               <FormItem>
@@ -20,63 +24,93 @@
                   <Option v-for="hall in hallList"
                           :value="hall.id"
                           :key="hall.id"
-                          :label="hall.name"/>
+                          :label="hall.name" />
                 </Select>
               </FormItem>
               <FormItem>
-                <Button type="primary" @click="getScheduleByHallId">查询</Button>
+                <Button type="primary"
+                        @click="getScheduleByHallId">查询</Button>
               </FormItem>
               <FormItem style="position: relative;left: 200px">
-                <Button type="primary" @click="addSchedule">新添排片</Button>
+                <Button type="primary"
+                        @click="addSchedule">新添排片</Button>
               </FormItem>
             </Form>
           </div>
           <Row style="height: 760px;width: 100%;">
-            <Col span="2" style="display: flex;flex-direction: column;justify-content: space-between;height: 720px;margin-top: 22px">
-              <div>00:00</div>
-              <div>06:00</div>
-              <div>12:00</div>
-              <div>18:00</div>
-              <div>24:00</div>
+            <Col span="2"
+                 style="display: flex;flex-direction: column;justify-content: space-between;height: 720px;margin-top: 22px">
+            <div>00:00</div>
+            <div>06:00</div>
+            <div>12:00</div>
+            <div>18:00</div>
+            <div>24:00</div>
             </Col>
-            <Col span="22" style="display: flex;">
-              <div style="display: flex;flex-direction: column;height: 100%;width: 14%;margin-left: 2px" v-for="day in schedules" v-bind:key="day.date">
-                 <div>{{day.date.substring(0,10)}}</div>
-                 <Card class="day_canvas " :padding="padding">
-                   <Button class="default_movie_button" v-for="movie in day.scheduleItemList" :key="movie.id" type= "info" :style="movie.style" @click="editSchedule(movie)">
-                     <span>{{movie.movieName}}</span>
-                     <br>
-                     <span>{{movie.startTimeStr}}-{{movie.endTimeStr}}</span>
-                   </Button>
-                </Card>
-              </div>
+            <Col span="22"
+                 style="display: flex;">
+            <div style="display: flex;flex-direction: column;height: 100%;width: 14%;margin-left: 2px"
+                 v-for="day in schedules"
+                 v-bind:key="day.date">
+              <div>{{day.date.substring(0,10)}}</div>
+              <Card class="day_canvas "
+                    :padding="padding">
+                <Button class="default_movie_button"
+                        v-for="movie in day.scheduleItemList"
+                        :key="movie.id"
+                        type="info"
+                        :style="movie.style"
+                        @click="editSchedule(movie)">
+                  <span>{{movie.movieName}}</span>
+                  <br>
+                  <span>{{movie.startTime.substring(11,16)}}-{{movie.endTime.substring(11,16)}}</span>
+                </Button>
+              </Card>
+            </div>
             </Col>
           </Row>
         </Card>
       </div>
       </Col>
     </Row>
-    <Modal v-model="addScheduleModal" title="新增排片信息"  @on-ok="handleAddSchedule">
+    <Modal v-model="addScheduleModal"
+           title="新增排片信息"
+           @on-ok="handleAddSchedule">
       <div style="margin-left:20px;">
         <Form :model="toAddSchedule"
               :label-width="80"
               label-position="left">
           <br>
           <FormItem label="放映电影">
-            <Select v-model="toAddSchedule.movieId" style="width:200px">
-              <Option v-for="item in movieList" :value="item.id" :key="item.id" :label="item.name">{{ item.name }}</Option>
+            <Select v-model="toAddSchedule.movieId"
+                    style="width:200px">
+              <Option v-for="item in movieList"
+                      :value="item.id"
+                      :key="item.id"
+                      :label="item.name">{{ item.name }}</Option>
             </Select>
           </FormItem>
           <FormItem label="影厅">
-            <Select v-model="toAddSchedule.hallId" style="width:200px">
-              <Option v-for="item in hallList" :value="item.id" :key="item.id" :label="item.name">{{ item.name }}</Option>
+            <Select v-model="toAddSchedule.hallId"
+                    style="width:200px">
+              <Option v-for="item in hallList"
+                      :value="item.id"
+                      :key="item.id"
+                      :label="item.name">{{ item.name }}</Option>
             </Select>
           </FormItem>
           <FormItem label="开始时间">
-            <DatePicker type="datetime" format="yyyy-MM-dd HH:mm" placeholder="选择日期和时间" style="width: 200px" v-model="toAddSchedule.startTime"></DatePicker>
+            <DatePicker type="datetime"
+                        format="yyyy-MM-dd HH:mm"
+                        placeholder="选择日期和时间"
+                        style="width: 200px"
+                        v-model="toAddSchedule.startTime"></DatePicker>
           </FormItem>
           <FormItem label="结束时间">
-            <DatePicker type="datetime" format="yyyy-MM-dd HH:mm" placeholder="选择日期和时间" style="width: 200px" v-model="toAddSchedule.endTime"></DatePicker>
+            <DatePicker type="datetime"
+                        format="yyyy-MM-dd HH:mm"
+                        placeholder="选择日期和时间"
+                        style="width: 200px"
+                        v-model="toAddSchedule.endTime"></DatePicker>
           </FormItem>
           <FormItem label="票价">
             <Input v-model="toAddSchedule.fare"
@@ -86,27 +120,45 @@
         </Form>
       </div>
     </Modal>
-    <Modal v-model="editScheduleModal" title="修改排片信息"  @on-ok="handleEditSchedule">
+    <Modal v-model="editScheduleModal"
+           title="修改排片信息"
+           @on-ok="handleEditSchedule">
       <div style="margin-left:20px;">
         <Form :model="toEditSchedule"
               :label-width="80"
               label-position="left">
           <br>
           <FormItem label="放映电影">
-            <Select v-model="toEditSchedule.movieId" style="width:200px">
-              <Option v-for="item in movieList" :value="item.id" :key="item.id" :label="item.name">{{ item.name }}</Option>
+            <Select v-model="toEditSchedule.movieId"
+                    style="width:200px">
+              <Option v-for="item in movieList"
+                      :value="item.id"
+                      :key="item.id"
+                      :label="item.name">{{ item.name }}</Option>
             </Select>
           </FormItem>
           <FormItem label="影厅">
-            <Select v-model="toEditSchedule.hallId" style="width:200px">
-              <Option v-for="item in hallList" :value="item.id" :key="item.id" :label="item.name">{{ item.name }}</Option>
+            <Select v-model="toEditSchedule.hallId"
+                    style="width:200px">
+              <Option v-for="item in hallList"
+                      :value="item.id"
+                      :key="item.id"
+                      :label="item.name">{{ item.name }}</Option>
             </Select>
           </FormItem>
           <FormItem label="开始时间">
-            <DatePicker type="datetime" format="yyyy-MM-dd HH:mm" placeholder="Select date and time(Excluding seconds)" style="width: 200px" v-model="toEditSchedule.startTime"></DatePicker>
+            <DatePicker type="datetime"
+                        format="yyyy-MM-dd HH:mm"
+                        placeholder="Select date and time(Excluding seconds)"
+                        style="width: 200px"
+                        v-model="toEditSchedule.startTime"></DatePicker>
           </FormItem>
           <FormItem label="结束时间">
-            <DatePicker type="datetime" format="yyyy-MM-dd HH:mm" placeholder="Select date and time(Excluding seconds)" style="width: 200px" v-model="toEditSchedule.endTime"></DatePicker>
+            <DatePicker type="datetime"
+                        format="yyyy-MM-dd HH:mm"
+                        placeholder="Select date and time(Excluding seconds)"
+                        style="width: 200px"
+                        v-model="toEditSchedule.endTime"></DatePicker>
           </FormItem>
           <FormItem label="票价">
             <Input v-model="toEditSchedule.fare"
@@ -132,7 +184,7 @@
 }
 .default_movie_button {
   min-height: 30px;
-  width: 100%
+  width: 100%;
 }
 </style>
 
@@ -217,8 +269,6 @@ export default {
           let marginTop = Math.round((start.getHours() + start.getMinutes() / 60) / 24 * 720 - heightCounter)
           heightCounter = heightCounter + height
           tempList[j].scheduleItemList[i].style = 'position: relative;top: ' + marginTop + 'px;height: ' + height + 'px'
-          tempList[j].scheduleItemList[i].startTimeStr = tempList[j].scheduleItemList[i].startTime.substring(11, 16)
-          tempList[j].scheduleItemList[i].endTimeStr = tempList[j].scheduleItemList[i].endTime.substring(11, 16)
         }
       }
       return tempList
