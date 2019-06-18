@@ -12,51 +12,51 @@ export default new Router({
     {
       path: '/index',
       name: 'index',
-      component: () => import('@/views/index'),
+      component: () => import('@/views/user/index'),
       children: [
         {
           path: '/main',
-          component: () => import('@/views/main')
+          component: () => import('@/views/user/main')
         },
         {
           path: '/movie',
-          component: () => import('@/views/movie')
+          component: () => import('@/views/user/movie')
         },
         {
           path: '/order',
-          component: () => import('@/views/ticketOrder')
+          component: () => import('@/views/user/ticketOrder')
         },
         {
           path: '/movielist',
-          component: () => import('@/views/movielist')
+          component: () => import('@/views/user/movielist')
         },
         {
           path: '/search',
-          component: () => import('@/views/search')
+          component: () => import('@/views/user/search')
         },
         {
           path: '/movie',
-          component: () => import('@/views/movie')
+          component: () => import('@/views/user/movie')
         },
         {
           path: '/my/tickets',
           name: 'myTickets',
-          component: () => import('@/views/my/tickets')
+          component: () => import('@/views/user/my/tickets')
         },
         {
           path: '/my/orders',
           name: 'myOrders',
-          component: () => import('@/views/my/orders')
+          component: () => import('@/views/user/my/orders')
         },
         {
           path: '/my/vip',
           name: 'myVIP',
-          component: () => import('@/views/my/vip')
+          component: () => import('@/views/user/my/vip')
         },
         {
           path: '/my/coupons',
           name: 'myCoupons',
-          component: () => import('@/views/my/coupons')
+          component: () => import('@/views/user/my/coupons')
         }
       ]
     },
