@@ -77,7 +77,7 @@ export default {
           key: 'refund',
           align: 'center',
           render: (h, params) => {
-            if (params.row.state === '已完成' && params.row.canRefund === 1) {
+            if (params.row.state === '已完成' && params.row.canRefund === 1 && new Date(params.row.startTime) > new Date()) {
               return h('Button', {
                 on: {
                   click: () => {
@@ -133,12 +133,13 @@ export default {
       })
     },
     refundTicket (ticketId) {
+      let that = this
       this.$axios({
         method: 'post',
         url: 'http://localhost:8080/ticket/refundTicket?ticketId=' + ticketId
       }).then(function (res) {
         if (res.data.success) {
-          this.$router.go(0)
+          that.getMyTickets()
         } else {
           alert(res.data.message)
         }

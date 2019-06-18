@@ -72,6 +72,10 @@ export default {
       this.$router.push('/login')
     },
     search () {
+      if (this.searchKey === '') {
+        this.$Message.warning('关键字不能为空')
+        return
+      }
       let that = this
       this.$router.push({
         path: '/search',

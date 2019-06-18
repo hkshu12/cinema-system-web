@@ -224,7 +224,7 @@ export default {
         }
       }).then((res) => {
         if (res.data.success) {
-          this.$router.go(0)
+          that.getVIPInfo()
         } else {
           alert(res.data.message)
         }
@@ -249,7 +249,7 @@ export default {
         }
       }).then((res) => {
         if (res.data.success) {
-          this.$router.go(0)
+          that.getVIPInfo()
         } else {
           alert(res.data.message)
         }

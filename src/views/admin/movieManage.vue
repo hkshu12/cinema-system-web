@@ -98,7 +98,7 @@
 
 <style>
 li {
-   list-style-type: none;
+  list-style-type: none;
 }
 </style>
 
@@ -185,33 +185,36 @@ export default {
     movieCard
   },
   mounted: function () {
-    let that = this
-    this.$axios({
-      method: 'get',
-      url: 'http://localhost:8080/movie/all'
-    }).then(function (res) {
-      if (res.data.success) {
-        that.movieList = res.data.content
-      } else {
-        alert(res.data.content)
-      }
-    }).catch(function (error) {
-      alert(error)
-    })
-    this.$axios({
-      method: 'get',
-      url: 'http://localhost:8080/movie/all/exclude/off'
-    }).then(function (res) {
-      if (res.data.success) {
-        that.excludeOffMovieList = res.data.content
-      } else {
-        alert(res.data.content)
-      }
-    }).catch(function (error) {
-      alert(error)
-    })
+    this.getMovieList()
   },
   methods: {
+    getMovieList () {
+      let that = this
+      this.$axios({
+        method: 'get',
+        url: 'http://localhost:8080/movie/all'
+      }).then(function (res) {
+        if (res.data.success) {
+          that.movieList = res.data.content
+        } else {
+          alert(res.data.content)
+        }
+      }).catch(function (error) {
+        alert(error)
+      })
+      this.$axios({
+        method: 'get',
+        url: 'http://localhost:8080/movie/all/exclude/off'
+      }).then(function (res) {
+        if (res.data.success) {
+          that.excludeOffMovieList = res.data.content
+        } else {
+          alert(res.data.content)
+        }
+      }).catch(function (error) {
+        alert(error)
+      })
+    },
     switchMovieList (status) {
       this.trigger = status
     },
@@ -230,7 +233,7 @@ export default {
           }).then((res) => {
             if (res.data.success) {
               this.$Message.success('添加成功')
-              this.$router.go(0)
+              that.getMovieList()
             } else {
               alert(res.data.message)
             }
