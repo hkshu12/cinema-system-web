@@ -1,38 +1,47 @@
 <template>
   <Card style="min-height: 600px;margin: 15px">
-  <div style="min-height: 500px">
-    <Steps :current="step" size="small" style="margin-top: 15px">
-      <Step title="选择座位"></Step>
-      <Step title="确认订单"></Step>
-      <Step title="支付完成"></Step>
-    </Steps>
-    <!--选择座位-->
-    <Row v-if="step == 0">
-      <Col span="16">
+    <div style="min-height: 500px">
+      <Steps :current="step"
+             size="small"
+             style="margin-top: 15px">
+        <Step title="选择座位"></Step>
+        <Step title="确认订单"></Step>
+        <Step title="支付完成"></Step>
+      </Steps>
+      <!--选择座位-->
+      <Row v-if="step == 0">
+        <Col span="16">
         <Card style="margin-top: 50px;width: 80%;min-height: 400px">
           <h3 style="margin-bottom: 10px">选择座位</h3>
           <div style="position:relative;right: 100px">
-            <div class="selected-seat" style="display: inline-block;position: relative;top:10px"></div>
+            <div class="selected-seat"
+                 style="display: inline-block;position: relative;top:10px"></div>
             已选
           </div>
           <div style="position:relative;right: 100px;margin-bottom: 10px">
-            <div class="unselected-seat" style="display: inline-block;position: relative;top:10px"></div>
+            <div class="unselected-seat"
+                 style="display: inline-block;position: relative;top:10px"></div>
             未选
           </div>
-          <div v-for="row in seatsArray.length" v-bind:key="row">
-            <div v-for="col in seatsArray[0].length" v-bind:key="col" style="display: inline-block">
+          <div v-for="row in seatsArray.length"
+               v-bind:key="row">
+            <div v-for="col in seatsArray[0].length"
+                 v-bind:key="col"
+                 style="display: inline-block">
               <div v-bind:class="seatsArray[row-1][col-1]===1?'selected-seat':(seatsArray[row-1][col-1]===0?'unselected-seat':'add-seat')"
                    @click="addSeat(row-1,col-1)">
               </div>
             </div>
           </div>
         </Card>
-      </Col>
-      <Col span="8">
+        </Col>
+        <Col span="8">
         <div style="margin-top: 50px;width: 80%;min-height: 400px">
           <div style=" display: flex;flex-direction: row; align-items: center;">
-            <img v-bind:src="posterUrl" style="width: 150px;height: 200px"/>
-            <Divider type="vertical" style="height: 200px;margin-left: 20px" />
+            <img v-bind:src="posterUrl"
+                 style="width: 150px;height: 200px" />
+            <Divider type="vertical"
+                     style="height: 200px;margin-left: 20px" />
             <div style="display: flex;flex-direction: column; align-items: flex-start;padding-top: 20px;margin-left: 10px">
               <div style="margin-bottom: 8px">片名: {{movieName}}</div>
               <div style="margin-bottom: 8px">语言: {{movieLanguage}}</div>
@@ -49,51 +58,75 @@
               <div style="margin-bottom: 3px">座位：{{pickedSeatsToStr}}</div>
             </div>
           </div>
-          <Button type="primary" size="large" style="margin-top: 20px" v-on:click="lockSeats" v-bind:disabled="pickedSeats.length === 0">确定选座</Button>
+          <Button type="primary"
+                  size="large"
+                  style="margin-top: 20px"
+                  v-on:click="lockSeats"
+                  v-bind:disabled="pickedSeats.length === 0">确定选座</Button>
         </div>
-      </Col>
-    </Row>
-    <!--支付订单-->
-    <div v-else-if="step === 1" style="margin-top: 50px;padding: 10px;">
-      <Table :columns="orderTable" :data="tableInfo" style="min-height: 80px"></Table>
-      <div style="display: flex;justify-content: flex-start">
-        <div style="margin-top: 15px">
-          <Select v-model="selectedCouponIndex" style="width:200px;" v-bind:disabled="couponList.length === 0" v-bind:placeholder="couponList.length === 0?'无可用优惠券':'请选择优惠券'" @on-change="couponSelect()">
-          <Option v-for="coupon in couponList" :value="coupon.index" :key="coupon.index" :label="coupon.name">
-            <span>{{coupon.name}}</span>
-            <span v-if="coupon.index !== 0" style="float:right;color:#ccc">满{{coupon.targetAmount}}减{{coupon.discountAmount}}</span>
-          </Option>
-        </Select>
+        </Col>
+      </Row>
+      <!--支付订单-->
+      <div v-else-if="step === 1"
+           style="margin-top: 50px;padding: 10px;">
+        <Table :columns="orderTable"
+               :data="tableInfo"
+               style="min-height: 80px"></Table>
+        <div style="display: flex;justify-content: flex-start">
+          <div style="margin-top: 15px">
+            <Select v-model="selectedCouponIndex"
+                    style="width:200px;"
+                    v-bind:disabled="couponList.length === 0"
+                    v-bind:placeholder="couponList.length === 0?'无可用优惠券':'请选择优惠券'"
+                    @on-change="couponSelect()">
+              <Option v-for="coupon in couponList"
+                      :value="coupon.index"
+                      :key="coupon.index"
+                      :label="coupon.name">
+                <span>{{coupon.name}}</span>
+                <span v-if="coupon.index !== 0"
+                      style="float:right;color:#ccc">满{{coupon.targetAmount}}减{{coupon.discountAmount}}</span>
+              </Option>
+            </Select>
+          </div>
+          <div style="margin-top: 15px;margin-left: 20px">
+            <RadioGroup v-model="selectedPay"
+                        type="button">
+              <Radio label="银行卡">
+                <Icon type="ios-card-outline" />
+                <span>银行卡支付</span>
+              </Radio>
+              <Radio label="会员卡"
+                     v-bind:disabled="!isVip">
+                <Icon type="md-contact" />
+                <span>会员卡支付</span>
+              </Radio>
+            </RadioGroup>
+          </div>
+          <div style="margin-top: 15px;margin-left: auto;margin-right: 100px;display: flex;flex-direction: column;align-items: flex-start">
+            <div>总金额：{{tableInfo[0].totalPrice}}</div>
+            <div>优惠金额：{{discountAmount}}元</div>
+          </div>
         </div>
-        <div style="margin-top: 15px;margin-left: 20px">
-          <RadioGroup v-model="selectedPay" type="button">
-            <Radio label="银行卡">
-              <Icon type="ios-card-outline" />
-              <span>银行卡支付</span>
-            </Radio>
-            <Radio label="会员卡" v-bind:disabled="!isVip">
-              <Icon type="md-contact" />
-              <span>会员卡支付</span>
-            </Radio>
-          </RadioGroup>
-        </div>
-        <div  style="margin-top: 15px;margin-left: auto;margin-right: 100px;display: flex;flex-direction: column;align-items: flex-start">
-          <div>总金额：{{tableInfo[0].totalPrice}}</div>
-          <div>优惠金额：{{discountAmount}}元</div>
+        <Divider style="width: 60%"></Divider>
+        <div style="display: flex;flex-direction: column;align-items: flex-end;margin-right: 100px;">
+          <div>实际付款：{{ticketPrice*pickedSeats.length-discountAmount}}元</div>
+          <Button size="large"
+                  style="margin-top: 10px"
+                  type="primary"
+                  v-on:click="handleConfirm">确定支付</Button>
         </div>
       </div>
-      <Divider style="width: 60%"></Divider>
-      <div style="display: flex;flex-direction: column;align-items: flex-end;margin-right: 100px;">
-        <div>实际付款：{{ticketPrice*pickedSeats.length-discountAmount}}元</div>
-        <Button size="large" style="margin-top: 10px" type="primary" v-on:click="handleConfirm">确定支付</Button>
+      <!--订单完成-->
+      <div v-else-if="step === 2"
+           style="margin-top: 50px;padding: 10px">
+        <div>
+          <Icon type="md-checkmark-circle-outline"
+                size="300" />
+        </div>
+        <div>购买成功，请至<b>我的电影票</b>中查看</div>
       </div>
     </div>
-    <!--订单完成-->
-    <div v-else-if="step === 2" style="margin-top: 50px;padding: 10px">
-      <div><Icon type="md-checkmark-circle-outline" size="300"/></div>
-      <div>购买成功，请至<b>我的电影票</b>中查看</div>
-    </div>
-  </div>
     <!--银行卡支付modal-->
     <Modal v-model="bankCardModal"
            title="银行卡支付"
@@ -121,33 +154,33 @@
   </Card>
 </template>
 <style>
-  .selected-seat {
-    background: url("../../assets/selected-seat.png")center center no-repeat;
-    background-size: 100% 100%;
-    width: 24px;
-    height: 24px;
-    margin: 2px;
-    border: none;
-    outline: none;
-  }
-  .unselected-seat {
-    background: url("../../assets/unselected-seat.png")center center no-repeat;
-    background-size: 100% 100%;
-    width: 24px;
-    height: 24px;
-    margin: 2px;
-    border: none;
-    outline: none;
-  }
-  .add-seat{
-    background: url("../../assets/add-seat.png")center center no-repeat;
-    background-size: 100% 100%;
-    width: 24px;
-    height: 24px;
-    margin: 2px;
-    border: none;
-    outline: none;
-  }
+.selected-seat {
+  background: url("../../assets/selected-seat.png") center center no-repeat;
+  background-size: 100% 100%;
+  width: 24px;
+  height: 24px;
+  margin: 2px;
+  border: none;
+  outline: none;
+}
+.unselected-seat {
+  background: url("../../assets/unselected-seat.png") center center no-repeat;
+  background-size: 100% 100%;
+  width: 24px;
+  height: 24px;
+  margin: 2px;
+  border: none;
+  outline: none;
+}
+.add-seat {
+  background: url("../../assets/add-seat.png") center center no-repeat;
+  background-size: 100% 100%;
+  width: 24px;
+  height: 24px;
+  margin: 2px;
+  border: none;
+  outline: none;
+}
 </style>
 
 <script>
@@ -171,24 +204,24 @@ export default {
       isVip: false,
       vipInfo: Object, //
       orderTable: [
-        {title: '电影', key: 'movieName'},
-        {title: '影厅', key: 'hallName'},
-        {title: '场次', key: 'scheduleTime'},
-        {title: '座位', key: 'seats'},
-        {title: '单价', key: 'ticketPrice'},
-        {title: '总价', key: 'totalPrice'}
+        { title: '电影', key: 'movieName' },
+        { title: '影厅', key: 'hallName' },
+        { title: '场次', key: 'scheduleTime' },
+        { title: '座位', key: 'seats' },
+        { title: '单价', key: 'ticketPrice' },
+        { title: '总价', key: 'totalPrice' }
       ],
       totalPrice: 0,
       tableInfo: [],
       couponList: [],
       discountAmount: 0,
-      selectedCouponIndex: Number,
+      selectedCouponIndex: '',
       selectedPay: '银行卡',
       selectedCouponId: 0,
       bankCardModal: false,
       bankCardData: {
-        account: Number,
-        password: Number
+        account: '',
+        password: ''
       },
       selectedTicketId: []
     }
@@ -212,6 +245,7 @@ export default {
   mounted () {
     this.initSeats(this.$route.query.scheduleId)
     this.initMovieDetail(this.$route.query.id)
+    this.getStep(this.$route.query.isUnfinished, this.$route.query.orderId)
     this.initVIP()
     this.initCoupon()
   },
@@ -343,22 +377,19 @@ export default {
       })
     },
     // 根据orderInfo处理
-    initOrder (orderInfo, isUnfinished) {
-      if (isUnfinished) {
-        // to be finished
-      } else {
-        this.step = 1
-        let tempTable = [{movieName: this.movieName,
-          hallName: this.hallName,
-          scheduleTime: this.scheduleTime,
-          seats: this.pickedSeatsToStr,
-          ticketPrice: this.ticketPrice + '元',
-          totalPrice: orderInfo.initial_amount
-        }]
-        this.totalPrice = orderInfo.initial_amount
-        this.tableInfo = tempTable
-        this.getTicketIdByOrder(orderInfo.orderID)
-      }
+    initOrder (orderInfo) {
+      this.step = 1
+      let tempTable = [{
+        movieName: this.movieName,
+        hallName: this.hallName,
+        scheduleTime: this.scheduleTime,
+        seats: this.pickedSeatsToStr,
+        ticketPrice: this.ticketPrice + '元',
+        totalPrice: orderInfo.initial_amount
+      }]
+      this.totalPrice = orderInfo.initial_amount
+      this.tableInfo = tempTable
+      this.getTicketIdByOrder(orderInfo.orderID)
     },
     // 选择优惠券
     couponSelect () {
@@ -419,22 +450,58 @@ export default {
         url: 'http://localhost:8080/ticket/getByOrderID/' + orderId
       }).then(function (res) {
         if (res.data.success) {
+          let tempSeats = []
           let tempList = []
           for (let i = 0; i < res.data.content.length; i++) {
+            tempSeats.push(
+              {
+                rowIndex: res.data.content[i].rowIndex,
+                columnIndex: res.data.content[i].columnIndex
+              }
+            )
             tempList.push(res.data.content[i].id)
           }
+          that.pickedSeats = tempSeats
           that.selectedTicketId = tempList
+          that.refreshTable()
         } else {
           alert(res.data.message)
         }
       }).catch(function (error) {
         alert(error)
       })
+    },
+    getStep (isUnfinished, orderId) {
+      if (isUnfinished) {
+        let that = this
+        this.$axios({
+          method: 'get',
+          url: 'http://localhost:8080/records/getOrderRecord/' + orderId
+        }).then(function (res) {
+          if (res.data.success) {
+            that.initOrder(res.data.content)
+          } else {
+            alert(res.data.message)
+          }
+        }).catch(function (error) {
+          alert(error)
+        })
+      }
+    },
+    refreshTable () {
+      let tempTable = [{
+        movieName: this.movieName,
+        hallName: this.hallName,
+        scheduleTime: this.scheduleTime,
+        seats: this.pickedSeatsToStr,
+        ticketPrice: this.ticketPrice + '元',
+        totalPrice: this.totalPrice + '元'
+      }]
+      this.tableInfo = tempTable
     }
   }
 }
 </script>
 
 <style scoped>
-
 </style>
