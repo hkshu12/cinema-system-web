@@ -40,6 +40,14 @@
             </div>
           </div>
         </Card>
+        <Card v-if="isVIP" style="margin-top:40px;">
+          <p slot="title"
+             style="text-align:left;font-size:20px;">充值记录</p>
+          <Table :columns="columns"
+                 :data="chargeRecords"
+                 stripe>
+          </Table>
+        </Card>
         </Col>
       </Row>
       <Modal v-model="buyVIPModal"
@@ -137,13 +145,49 @@ export default {
         password: '',
         amount: ''
       },
-      VIPCard: {}
+      VIPCard: {},
+      chargeRecords: [],
+      columns: [
+        {
+          title: '充值时间',
+          key: 'time',
+          align: 'center',
+          render: (h, params) => {
+            return h('span', params.row.time.substring(0, 10) + ' ' + params.row.time.substring(11, 19))
+          }
+        },
+        {
+          title: '充值金额',
+          key: 'amount',
+          align: 'center'
+        },
+        {
+          title: '赠额',
+          key: 'gift',
+          align: 'center'
+        }
+      ]
     }
   },
   mounted: function () {
     this.getVIPInfo()
   },
   methods: {
+    getChargeRecords () {
+      let that = this
+      this.$axios({
+        method: 'get',
+        url: 'http://localhost:8080/records/selectChargeRecordByUserID/' + sessionStorage.getItem('id')
+      }).then(function (res) {
+        if (res.data.success) {
+          that.chargeRecords = res.data.content
+        } else {
+          alert(res.data.message)
+        }
+      }).catch(function (error) {
+        alert(error)
+      })
+    },
     getVIPInfo () {
       let that = this
       this.$axios({
@@ -153,6 +197,7 @@ export default {
         if (res.data.success) {
           that.isVIP = true
           that.VIPCard = res.data.content
+          that.getChargeRecords()
         } else {
           that.isVIP = false
         }
@@ -250,6 +295,7 @@ export default {
       }).then((res) => {
         if (res.data.success) {
           that.getVIPInfo()
+          that.getChargeRecords()
         } else {
           alert(res.data.message)
         }
