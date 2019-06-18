@@ -308,7 +308,8 @@ export default {
           }).then((res) => {
             if (res.data.success) {
               this.$Message.success('修改成功')
-              this.$router.go(0)
+              that.getMovieInfo()
+              that.getMovieLikeDate()
             } else {
               alert(res.data.message)
             }
