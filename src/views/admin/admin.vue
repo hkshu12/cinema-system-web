@@ -111,8 +111,8 @@ export default {
     let role = sessionStorage.getItem('role')
     if (role === 'admin') {
       this.role = '管理员'
-    } else if (role === 'manager') {
-      this.role = '经理'
+    } else if (role === 'employee') {
+      this.role = '员工'
     } else if (role === null) {
       this.$Message.error('请先进行登录')
       this.$router.push('/login')

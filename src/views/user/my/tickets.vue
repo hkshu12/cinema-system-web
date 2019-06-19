@@ -48,7 +48,7 @@ export default {
           key: 'seat',
           align: 'center',
           render: (h, params) => {
-            return h('span', params.row.rowIndex + '排' + params.row.columnIndex + '座')
+            return h('span', (params.row.rowIndex + 1) + '排' + (params.row.columnIndex + 1) + '座')
           }
         },
         {
@@ -85,7 +85,7 @@ export default {
                       title: '退票',
                       content: '<p>电影名:&nbsp;' + params.row.movieName + '</p>' +
                         '<p>影厅名:&nbsp;' + params.row.hallName + '</p>' +
-                        '<p>座位号:&nbsp;' + params.row.rowIndex + '排' + params.row.columnIndex + '座</p>' +
+                        '<p>座位号:&nbsp;' + (params.row.rowIndex + 1) + '排' + (params.row.columnIndex + 1) + '座</p>' +
                         '<p>时间:&nbsp;' + params.row.startTime.split('T')[0] + ' ' + params.row.startTime.substring(11, 16) + ' ~ ' + params.row.endTime.substring(11, 16),
                       okText: '确认退票',
                       cancelText: '取消',

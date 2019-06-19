@@ -118,8 +118,8 @@ export default {
             sessionStorage.setItem('loginStatus', 'user')
           } else if (res.data.content.userlevel === 1) {
             that.$router.push('admin')
-            sessionStorage.setItem('role', 'manager')
-            sessionStorage.setItem('loginStatus', 'manager')
+            sessionStorage.setItem('role', 'employee')
+            sessionStorage.setItem('loginStatus', 'employee')
           } else if (res.data.content.userlevel === 2) {
             that.$router.push('admin')
             sessionStorage.setItem('role', 'admin')
