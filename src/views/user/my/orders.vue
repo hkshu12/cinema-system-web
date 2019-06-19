@@ -10,7 +10,8 @@
         </div>
         <Divider></Divider>
         <Card>
-          <Table :columns="columns" :data="orderList"></Table>
+          <Table :columns="columns"
+                 :data="orderList"></Table>
         </Card>
         </Col>
       </Row>
@@ -59,9 +60,9 @@ export default {
           key: 'actual_payed_amount',
           align: 'center',
           render: (h, params) => {
-            if (params.row.state === 1) {
+            if (params.row.state === 1 && params.row.actual_payed_time !== '') {
               return h('span', params.row.actual_payed_amount)
-            } else {
+            } else if (params.row.state === 0) {
               return h('Button', {
                 props: {
                   type: 'primary',
@@ -84,6 +85,8 @@ export default {
                   }
                 }
               }, '前去支付')
+            } else {
+              return h('span', '订单超时已取消')
             }
           }
         }

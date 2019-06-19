@@ -169,6 +169,10 @@ export default {
     }
   },
   mounted () {
+    if (sessionStorage.getItem('role') !== '管理员') {
+      this.$Message.warning('只有管理员能进行账号管理')
+      this.$router.push('/admin/movie')
+    }
     this.getUserData()
   },
   methods: {

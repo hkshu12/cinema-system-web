@@ -124,7 +124,7 @@
           <Icon type="md-checkmark-circle-outline"
                 size="300" />
         </div>
-        <div>购买成功，请至<b>我的电影票</b>中查看</div>
+        <div>购买成功，请至<router-link to="/my/orders">我的电影票</router-link>中查看</div>
       </div>
     </div>
     <!--银行卡支付modal-->
