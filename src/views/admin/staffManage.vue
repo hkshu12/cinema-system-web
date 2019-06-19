@@ -169,7 +169,7 @@ export default {
     }
   },
   mounted () {
-    if (sessionStorage.getItem('role') !== '管理员') {
+    if (sessionStorage.getItem('role') !== 'admin') {
       this.$Message.warning('只有管理员能进行账号管理')
       this.$router.push('/admin/movie')
     }

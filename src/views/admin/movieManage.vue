@@ -20,7 +20,7 @@
           </h1>
         </div>
         <Divider></Divider>
-        <ul v-if="trigger">
+        <ul v-if="trigger" style="margin-left:20px;">
           <li v-for="item in movieList"
               v-bind:key="item.id">
             <movieCard :movie="item"></movieCard>

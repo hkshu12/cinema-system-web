@@ -62,6 +62,9 @@
   width: 650px;
   padding-left: 16px;
 }
+.movieCard-content-movieInfo p {
+  margin-top: 4px;
+}
 </style>
 
 <script>
