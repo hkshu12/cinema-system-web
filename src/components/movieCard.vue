@@ -38,7 +38,7 @@
 <style>
 .movieCard {
   margin-top: 10px;
-  height: 250px;
+  height: 270px;
   width: 800px;
   text-align: left;
 }

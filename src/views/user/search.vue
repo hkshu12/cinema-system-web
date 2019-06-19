@@ -33,24 +33,29 @@ export default {
   components: {
     movieCard
   },
-
-  methods: {
-
-  },
   mounted: function () {
-    let that = this
-    this.$axios({
-      method: 'get',
-      url: 'http://localhost:8080/movie/search?keyword=' + that.$route.query.keyword
-    }).then(function (res) {
-      if (res.data.success) {
-        that.movieList = res.data.content
-      } else {
-        alert(res.data.content)
-      }
-    }).catch(function (error) {
-      alert(error)
-    })
+    this.getSearchResult()
+  },
+  methods: {
+    getSearchResult () {
+      let that = this
+      this.$axios({
+        method: 'get',
+        url: 'http://localhost:8080/movie/search?keyword=' + that.$route.query.keyword
+      }).then(function (res) {
+        if (res.data.success) {
+          that.movieList = res.data.content
+        } else {
+          alert(res.data.content)
+        }
+      }).catch(function (error) {
+        alert(error)
+      })
+    }
+  },
+  watch: {
+    // 如果路由发生变化，再次执行该方法
+    '$route': 'getSearchResult'
   }
 }
 </script>
