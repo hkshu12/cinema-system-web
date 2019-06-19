@@ -184,7 +184,7 @@ export default {
         }
       ],
       hallData: [],
-      toEditHall: Object,
+      toEditHall: {},
       editHallModal: false,
       toAddHall: {
         name: '',
