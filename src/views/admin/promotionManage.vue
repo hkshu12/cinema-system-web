@@ -48,7 +48,7 @@
               <Input v-model="activityForm.description"
                      placeholder="输入活动介绍(非必须)" />
             </FormItem>
-            <FormItem label="起止时间" required="true">
+            <FormItem label="起止时间" :required="isRequired">
               <Row>
                 <Col span="11">
                   <FormItem prop="startTime">
@@ -85,12 +85,11 @@
                      type="number"
                      placeholder='输入金额' />
             </FormItem>
-            <FormItem label="参与电影" required="true">
+            <FormItem label="参与电影">
                <FormItem
                  v-for="item in selectedMovie"
                  :key="item.index"
-                 :label="'电影' + (item.index+1)"
-                 :prop="movie">
+                 :label="'电影' + (item.index+1)">
                  <Row>
                    <Col span="18">
                      <Select v-model="item.id" style="width:200px">
@@ -125,6 +124,7 @@ export default {
   },
   data () {
     return {
+      isRequired: true,
       showSwitch: false,
       activityList: [],
       movieList: [],
