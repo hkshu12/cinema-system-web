@@ -29,17 +29,20 @@
                         color="red" />&nbsp;{{movieDetails.likeCount||0}}</p>
               </div>
             </div>
-            <div style="margin-top: 20px;">
-              <span>简 介 ：</span>
-              <span id="movie-description">{{movieDetails.description}}</span>
+            <div class="movie-details">
+              <div style="margin-top: 20px;">
+                <span>简 介 ：</span>
+                <p style="color:grey;">
+                  <span id="movie-description">{{movieDetails.description}}</span>
+                </p>
+              </div>
+              <div><span>上 映 ：</span><span id="movie-startDate">{{new Date(movieDetails.startDate).toLocaleDateString()}}</span></div>
+              <div><span>类 型 ：</span><span id="movie-type">{{movieDetails.type}}</span></div>
+              <div><span>地 区 ：</span><span id="movie-country">{{movieDetails.country}}</span></div>
+              <div><span>导 演 ：</span><span id="movie-director">{{movieDetails.director}}</span></div>
+              <div><span>主 演 ：</span><span id="movie-starring">{{movieDetails.starring}}</span></div>
+              <div><span>编 剧 ：</span><span id="movie-writer">{{movieDetails.screenWriter}}</span></div>
             </div>
-            <div><span>上 映 ：</span><span id="movie-startDate">{{new Date(movieDetails.startDate).toLocaleDateString()}}</span></div>
-            <div><span>类 型 ：</span><span id="movie-type">{{movieDetails.type}}</span></div>
-            <div><span>地 区 ：</span><span id="movie-country">{{movieDetails.country}}</span></div>
-            <div><span>语 言 ：</span><span id="movie-language">{{movieDetails.language}}</span></div>
-            <div><span>导 演 ：</span><span id="movie-director">{{movieDetails.director}}</span></div>
-            <div><span>主 演 ：</span><span id="movie-starring">{{movieDetails.starring}}</span></div>
-            <div><span>编 剧 ：</span><span id="movie-writer">{{movieDetails.writer}}</span></div>
           </div>
         </div>
       </div>
@@ -142,6 +145,9 @@
   padding: 20px;
   display: flex;
   justify-content: center;
+}
+.movie-details div{
+  margin-top: 5px;
 }
 </style>
 

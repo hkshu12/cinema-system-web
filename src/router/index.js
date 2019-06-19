@@ -7,7 +7,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/index'
+      redirect: '/login'
     },
     {
       path: '/index',
@@ -103,27 +103,27 @@ export default new Router({
         },
         {
           path: '/admin/staff',
-          name: 'staffManage',
+          name: 'adminStaffManage',
           component: () => import('@/views/admin/staffManage')
         },
         {
           path: '/admin/movie/details',
-          name: 'movieDetails',
+          name: 'adminMovieDetails',
           component: () => import('@/views/admin/movieDetails')
         },
         {
           path: '/admin/coupon',
-          name: 'couponManage',
+          name: 'adminCouponManage',
           component: () => import('@/views/admin/couponManage')
         },
         {
           path: '/admin/refund',
-          name: 'couponManage',
+          name: 'adminRefundManage',
           component: () => import('@/views/admin/refundManage')
         },
         {
           path: '/admin/vip',
-          name: 'vipManage',
+          name: 'adminVipManage',
           component: () => import('@/views/admin/vipManage')
         }
       ]

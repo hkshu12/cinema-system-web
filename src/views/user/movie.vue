@@ -1,50 +1,55 @@
 <template>
   <Layout>
-    <Content class="content" style="width:90%;margin:0 auto;">
+    <Content class="content"
+             style="width:90%;margin:0 auto;">
       <div class='movie-details'
            id="movie-details">
         <img id="movie-img"
              :src='movieDetails.posterUrl'>
         <div class="movie-basic-info">
           <div>
-          <div style="display:inline"><span class="title"
-                  id="movie-name">{{movieDetails.name}}</span></div>
-          <div style="display:inline;float:right">
-            <Button class="btn btn-primary"
-                    id="like-btn"
-                    @click="likeMovie"
-                    v-if="!movieDetails.islike"
-                    primary>
-              <span>
-                <Icon type="md-heart" />&nbsp;想看</span>
-            </Button>
-            <Button class="btn btn-primary"
-                    id="unlike-btn"
-                    @click="unlikeMovie"
-                    v-else
-                    primary>
-              <span>
-                <Icon type="md-heart"
-                      color="red" />&nbsp;已标为想看</span>
-            </Button>
+            <div style="display:inline"><span class="title"
+                    id="movie-name">{{movieDetails.name}}</span></div>
+            <div style="display:inline;float:right">
+              <Button class="btn btn-primary"
+                      id="like-btn"
+                      @click="likeMovie"
+                      v-if="!movieDetails.islike"
+                      primary>
+                <span>
+                  <Icon type="md-heart" />&nbsp;想看</span>
+              </Button>
+              <Button class="btn btn-primary"
+                      id="unlike-btn"
+                      @click="unlikeMovie"
+                      v-else
+                      primary>
+                <span>
+                  <Icon type="md-heart"
+                        color="red" />&nbsp;已标为想看</span>
+              </Button>
+            </div>
           </div>
+          <div class="movie-details">
+            <div style="margin-top: 20px;">
+              <span>简 介 ：</span><span id="movie-description">
+                <p style="color:grey;">{{movieDetails.description}}</p>
+              </span>
+            </div>
+            <div><span>上 映 ：</span><span id="movie-startDate">{{new Date(movieDetails.startDate).toLocaleDateString()}}</span></div>
+            <div><span>类 型 ：</span><span id="movie-type">{{movieDetails.type}}</span></div>
+            <div><span>地 区 ：</span><span id="movie-country">{{movieDetails.country}}</span></div>
+            <div><span>导 演 ：</span><span id="movie-director">{{movieDetails.director}}</span></div>
+            <div><span>主 演 ：</span><span id="movie-starring">{{movieDetails.starring}}</span></div>
+            <div><span>编 剧 ：</span><span id="movie-writer">{{movieDetails.screenWriter}}</span></div>
           </div>
-          <div style="margin-top: 20px;">
-            <span>简 介 ：</span><span id="movie-description">{{movieDetails.description}}</span>
-          </div>
-          <div><span>上 映 ：</span><span id="movie-startDate">{{new Date(movieDetails.startDate).toLocaleDateString()}}</span></div>
-          <div><span>类 型 ：</span><span id="movie-type">{{movieDetails.type}}</span></div>
-          <div><span>地 区 ：</span><span id="movie-country">{{movieDetails.country}}</span></div>
-          <div><span>语 言 ：</span><span id="movie-language">{{movieDetails.language}}</span></div>
-          <div><span>导 演 ：</span><span id="movie-director">{{movieDetails.director}}</span></div>
-          <div><span>主 演 ：</span><span id="movie-starring">{{movieDetails.starring}}</span></div>
-          <div><span>编 剧 ：</span><span id="movie-writer">{{movieDetails.writer}}</span></div>
         </div>
       </div>
       <div class="movie-schedule"
            id="movie-schedule">
         <Card>
-          <p slot="extra" style="color:grey">只显示最近{{view}}天排片</p>
+          <p slot="extra"
+             style="color:grey">只显示最近{{view}}天排片</p>
           <Tabs id="schedule-tabs">
             <TabPane v-for="item in schedule"
                      :key="item.id"
@@ -89,7 +94,7 @@
 }
 #movie-schedule {
   height: 600px;
-  margin:40px auto;
+  margin: 40px auto;
 }
 </style>
 
