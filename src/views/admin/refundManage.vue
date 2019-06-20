@@ -86,7 +86,7 @@ export default {
           align: 'center'
         },
         {
-          title: '退票时间',
+          title: '退票时间(小时)',
           key: 'time',
           width: 200,
           align: 'center'

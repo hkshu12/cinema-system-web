@@ -148,6 +148,7 @@ export default {
           }).then((res) => {
             if (res.data.success) {
               this.$Message.success('注册成功')
+              this.$router.push('/login')
             } else {
               alert(res.data.message)
             }

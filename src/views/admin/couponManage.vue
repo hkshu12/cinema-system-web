@@ -115,6 +115,14 @@ export default {
           userId: that.selectedUserList,
           activityId: that.selectedActivityId
         }
+      }).then((res) => {
+        if (res.data.success) {
+          this.$Message.success('赠送成功')
+        } else {
+          alert('res.data.message')
+        }
+      }).catch(function (error) {
+        alert(error)
       })
     },
     getUserList () {
