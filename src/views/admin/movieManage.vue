@@ -26,7 +26,7 @@
             <movieCard :movie="item"></movieCard>
           </li>
         </ul>
-        <ul v-else>
+        <ul v-else style="margin-left:20px;">
           <li v-for="item in excludeOffMovieList"
               v-bind:key="item.id">
             <movieCard :movie="item"></movieCard>

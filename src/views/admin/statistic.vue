@@ -39,7 +39,7 @@
                style="width: 800px;height:500px;"></div>
         </Card>
       </div>
-      <div class="statistic-container" id="popular-movie-card-container" style="margin-bottom: 300px;">
+      <div class="statistic-container" id="popular-movie-card-container" style="margin-bottom: 200px;">
         <Card>
           <div id="popular-movie-container"
                style="width: 800px;height:500px;"></div>
@@ -59,8 +59,8 @@
 }
 .statistic-container {
   width: 100%;
-  height: 420px;
-  margin: 20px 20px 140px 20px;
+  height: 560px;
+  margin: 20px 20px 60px 20px;
 }
 </style>
 

@@ -146,7 +146,7 @@
   display: flex;
   justify-content: center;
 }
-.movie-details div{
+.movie-details div {
   margin-top: 5px;
 }
 </style>
@@ -348,7 +348,7 @@ export default {
     deepCopy (source) {
       let result = {}
       for (let key in source) {
-        result[key] = typeof source[key] === 'object' ? this.deepCopy(source[key]) : source[key]
+        result[key] = typeof source[key] === 'object' ? '' : source[key]
       }
       return result
     }
